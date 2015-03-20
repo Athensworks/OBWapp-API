@@ -39,15 +39,17 @@ taste
 GET   /beers
 GET   /beers?parameters=JSON_STRING
   Data:
+```json
   {
     lat: X,
     lon: Y,
     guid: GUID,
     age:  AGE
   }
+```
 
   Response:
-
+```json
   {
     [
       name: "Jackie O's",
@@ -82,23 +84,27 @@ GET   /beers?parameters=JSON_STRING
     beer_id: ID,
     favorite_count: COUNT
   }
+```
 
 PUT  /taste
   Data:
+```json
   {
     lat: X,
     lon: Y,
     guid: GUID,
     age:  AGE
   }
+```
 
   Response:
 
+```json
   {
     beer_id: ID,
     taste_count: COUNT
   }
-
+```
 POST  /favorite
   Data:
   {
@@ -110,10 +116,11 @@ POST  /favorite
   }
 
   Response:
-
+```json
   {
     beer_id: ID,
     favorite_count: COUNT
   }
+```
 
 POST /available
