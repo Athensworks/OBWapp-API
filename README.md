@@ -36,89 +36,95 @@ taste
   age
 
 
-GET   /beers
-GET   /beers?parameters=JSON_STRING
-  Data:
+*GET   /beers*
+*GET   /beers?parameters=JSON_STRING*
+
+Data:
 ```json
-  {
-    "lat": "X",
-    "lon": "Y",
-    "guid": "GUID",
-    "age":  "AGE"
-  }
+{
+  "lat": "X",
+  "lon": "Y",
+  "guid": "GUID",
+  "age":  "AGE"
+}
 ```
 
-  Response:
+Response:
 ```json
-  {
-    [
-      "name": "Jackie O's",
-      "address": "",
-      "lat": "",
-      "lon": "",
-      "beers": [{
-        "id": 1,
-        "name": "Firefly Amber",
-        "brewery": "Jackie O's",
-        "rate_beer_id": 111588,
-        "ibu": ,
-        "abv": 5.0,
-        "limited_release": false,
-        "status": "available",
-        "favorite_count": 44,
-        "taste_count": 100
-        }, {
-        "id": 2,
-        "name": "Firefly Amber",
-        "brewery": "Jackie O's",
-        "rate_beer_id": 111588,
-        "ibu": 123,
-        "abv": 5.0,
-        "limited_release": false,
-        "status": "available",
-        "favorite_count": 52,
-        "taste_count": 126
-        }
-      ]
+{
+  [
+    "name": "Jackie O's",
+    "address": "",
+    "lat": "",
+    "lon": "",
+    "beers": [{
+      "id": 1,
+      "name": "Firefly Amber",
+      "brewery": "Jackie O's",
+      "rate_beer_id": 111588,
+      "ibu": ,
+      "abv": 5.0,
+      "limited_release": false,
+      "status": "available",
+      "favorite_count": 44,
+      "taste_count": 100
+      }, {
+      "id": 2,
+      "name": "Firefly Amber",
+      "brewery": "Jackie O's",
+      "rate_beer_id": 111588,
+      "ibu": 123,
+      "abv": 5.0,
+      "limited_release": false,
+      "status": "available",
+      "favorite_count": 52,
+      "taste_count": 126
+      }
     ]
-  }
+  ]
+}
 ```
 
-PUT  /taste
-  Data:
+*POST  /taste*
+
+Data:
 ```json
-  {
-    "lat": "X",
-    "lon": "Y",
-    "guid": "GUID",
-    "age":  35
-  }
+{
+  "lat": "X",
+  "lon": "Y",
+  "guid": "GUID",
+  "age":  35
+}
 ```
 
-  Response:
-
+Response:
 ```json
-  {
-    "beer_id": 123,
-    "taste_count": 52
-  }
+{
+  "beer_id": 123,
+  "taste_count": 52
+}
 ```
-POST  /favorite
-  Data:
-  {
-    "lat": "X",
-    "lon": "Y",
-    "beer_id": 2,
-    "guid": "GUID",
-    "age":  43
-  }
 
-  Response:
+
+*POST  /favorite*
+
+Data:
 ```json
-  {
-    "beer_id": 2,
-    "favorite_count": 192
-  }
+{
+  "lat": "X",
+  "lon": "Y",
+  "beer_id": 2,
+  "guid": "GUID",
+  "age":  43
+}
+```
+
+Response:
+```json
+{
+  "beer_id": 2,
+  "favorite_count": 192
+}
 ```
 
 POST /available
