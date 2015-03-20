@@ -2,42 +2,41 @@
 
 Data Models
 
-
-Status - 'tapped', 'untapped', 'empty', 'empty-reported'
-
 Establishments
 -------------
-name
-lat
-lon
-address
-beers
-  beer_id
-  status
-  out_count
-  last_out_entry
+
+* name
+* lat
+* lon
+* address
+* beers
+  * beer_id
+  * status ('tapped', 'untapped', 'empty', 'empty-reported')
+  * reported_out_count
+  * last_out_update
 
 
 Beers
 -----
-id
-name
-brewery
-rate_beer_id
-ibu
-abv
-limited_release
-status
-favorites
-  guid
-  age
-taste
-  guid
-  age
+
+* id
+* name
+* brewery
+* rate_beer_id
+* ibu
+* abv
+* limited_release
+* favorites
+  * guid
+  * age
+* taste
+  * guid
+  * age
 
 
-*GET   /beers*
-*GET   /beers?parameters=JSON_STRING*
+*GET /beers*
+
+*GET /beers?parameters=JSON_STRING*
 
 Data:
 ```json
@@ -53,6 +52,7 @@ Response:
 ```json
 {
   [
+    "id": 1,
     "name": "Jackie O's",
     "address": "",
     "lat": "",
@@ -62,7 +62,7 @@ Response:
       "name": "Firefly Amber",
       "brewery": "Jackie O's",
       "rate_beer_id": 111588,
-      "ibu": ,
+      "ibu": 45,
       "abv": 5.0,
       "limited_release": false,
       "status": "available",
@@ -90,10 +90,11 @@ Response:
 Data:
 ```json
 {
-  "lat": "X",
-  "lon": "Y",
+  "beer_id": 123,
   "guid": "GUID",
   "age":  35
+  "lat": "X",
+  "lon": "Y",
 }
 ```
 
@@ -111,11 +112,11 @@ Response:
 Data:
 ```json
 {
-  "lat": "X",
-  "lon": "Y",
   "beer_id": 2,
   "guid": "GUID",
   "age":  43
+  "lat": "X",
+  "lon": "Y",
 }
 ```
 
@@ -127,4 +128,19 @@ Response:
 }
 ```
 
-POST /available
+PUT /establishment/:establishment_id/beer/:beer_id/
+Data:
+```json
+{
+  "status": "empty-reported"
+}
+```
+
+Response:
+```json
+{
+  "establishment_id": 1,
+  "beer_id": 2,
+  "reported_out_count": 4
+}
+```
