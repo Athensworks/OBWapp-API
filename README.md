@@ -4,35 +4,34 @@ Data Models
 
 Establishments
 -------------
-
-* name
-* lat
-* lon
-* address
-* beers
-  * beer_id
-  * status ('tapped', 'untapped', 'empty', 'empty-reported')
-  * reported_out_count
-  * last_out_update
+* id ID
+* name STRING
+* lat  STRING
+* lon  STRING
+* address STRING
+* beers ARRAY
+  * beer_id ID
+  * status ('tapped', 'untapped', 'empty', 'empty-reported') STRING
+  * reported_out_count INTEGER
+  * last_out_update DATETIME
 
 
 Beers
 -----
 
-* id
-* name
-* brewery
-* rate_beer_id
-* ibu
-* abv
-* limited_release
-* favorites
-  * guid
-  * age
-* taste
-  * guid
-  * age
-
+* id ID
+* name STRING
+* brewery STRING
+* rate_beer_id STRING
+* ibu INTEGER
+* abv FLOAT
+* limited_release BOOLEAN
+* favorites ARRAY
+  * guid STRING
+  * age INTEGER
+* taste ARRAY
+  * guid STRING
+  * age INTEGER
 
 *GET /beers*
 
