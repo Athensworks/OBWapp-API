@@ -118,7 +118,7 @@ Data:
 {
   "beer_id": 2,
   "guid": "GUID",
-  "age":  43
+  "age":  43,
   "lat": "X",
   "lon": "Y",
 }
