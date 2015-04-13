@@ -50,38 +50,43 @@ Data:
 Response:
 ```json
 {
-  [
-    "id": 1,
-    "name": "Jackie O's",
-    "address": "",
-    "lat": "",
-    "lon": "",
-    "beers": [{
-      "id": 1,
-      "name": "Firefly Amber",
-      "brewery": "Jackie O's",
-      "rate_beer_id": 111588,
-      "ibu": 45,
-      "abv": 5.0,
-      "limited_release": false,
-      "status": "available",
-      "favorite_count": 44,
-      "taste_count": 100
-      }, {
-      "id": 2,
-      "name": "Firefly Amber",
-      "brewery": "Jackie O's",
-      "rate_beer_id": 111588,
-      "ibu": 123,
-      "abv": 5.0,
-      "limited_release": false,
-      "status": "available",
-      "favorite_count": 52,
-      "taste_count": 126
-      }
+    "breweries": [
+        {
+            "address": "",
+            "beers": [
+                {
+                    "abv": 5.0,
+                    "brewery": "Jackie O's",
+                    "favorite_count": 44,
+                    "ibu": 45,
+                    "id": 1,
+                    "limited_release": false,
+                    "name": "Firefly Amber",
+                    "rate_beer_id": 111588,
+                    "status": "available",
+                    "taste_count": 100
+                },
+                {
+                    "abv": 5.0,
+                    "brewery": "Jackie O's",
+                    "favorite_count": 52,
+                    "ibu": 123,
+                    "id": 2,
+                    "limited_release": false,
+                    "name": "Firefly Amber",
+                    "rate_beer_id": 111588,
+                    "status": "available",
+                    "taste_count": 126
+                }
+            ],
+            "id": 1,
+            "lat": "",
+            "lon": "",
+            "name": "Jackie O's"
+        }
     ]
-  ]
 }
+
 ```
 
 *POST  /taste*
@@ -91,7 +96,7 @@ Data:
 {
   "beer_id": 123,
   "guid": "GUID",
-  "age":  35
+  "age":  35,
   "lat": "X",
   "lon": "Y",
 }
