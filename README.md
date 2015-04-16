@@ -50,7 +50,7 @@ Data:
 Response:
 ```json
 {
-    "breweries": [
+    "establishments": [
         {
             "address": "",
             "beers": [
