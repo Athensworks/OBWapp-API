@@ -40,8 +40,8 @@ Beers
 Data:
 ```json
 {
-  "lat": "X",
-  "lon": "Y",
+  "lat": "Y",
+  "lon": "X",
   "guid": "GUID",
   "age":  "AGE"
 }
