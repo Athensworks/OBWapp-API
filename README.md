@@ -63,6 +63,7 @@ Beers
 ```
 
 *GET /establishments* 
+
 *GET /establishments?parameters=JSON_STRING*
 
 Data:
