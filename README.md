@@ -57,8 +57,18 @@ Beers
         "name": "Firefly Amber",
         "rate_beer_id": 111588,
         "taste_count": 126
-    }
-  ]
+    },
+    {
+        "abv": 4.7,
+        "brewery": "Jackie O's",
+        "favorite_count": 11110,
+        "ibu": 32,
+        "id": 3,
+        "limited_release": true,
+        "name": "Razz Wheat",
+        "rate_beer_id": 111586,
+        "taste_count": 12
+    }]
 }
 ```
 
