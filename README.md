@@ -6,8 +6,8 @@ Establishments
 -------------
 * id ID
 * name STRING
-* lat  STRING
-* lon  STRING
+* lat  FLOAT
+* lon  FLOAT
 * address STRING
 * beers ARRAY
   * beer_id ID
