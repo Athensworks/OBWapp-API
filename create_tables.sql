@@ -2,7 +2,7 @@ create table establishments(
 id int unsigned not null primary key
 ,name varchar(100)
 ,lat  float
-,long float
+,lon float
 ,address varchar(100)
 );
 
