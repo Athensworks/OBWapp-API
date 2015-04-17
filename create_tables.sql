@@ -1,5 +1,5 @@
 create table establishments(
-id int unsigned primary key
+id int unsigned not null primary key
 ,name varchar(100)
 ,lat  float
 ,long float
@@ -8,9 +8,9 @@ id int unsigned primary key
 );
 
 create table beers(
-id int unsigned primary key
+id int unsigned not null primary key
 ,name varchar(100)
-,brewery vharchar(100)
+,brewery varchar(100)
 ,ibu smallint unsigned
 ,abv float
 ,limited_release bool
@@ -32,5 +32,3 @@ establishment_id int unsigned
 ,reported_out_count int unsigned
 ,last_out_update datetime
 );
-
-
