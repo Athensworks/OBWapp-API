@@ -34,7 +34,7 @@ Beers
   * age INTEGER
 
 *GET /beers*
-
+```json
 {"beers": [
  {
         "abv": 5.0,
@@ -60,6 +60,7 @@ Beers
     }
   ]
 }
+```
 
 *GET /establishments* 
 *GET /establishments?parameters=JSON_STRING*
