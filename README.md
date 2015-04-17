@@ -35,7 +35,34 @@ Beers
 
 *GET /beers*
 
-*GET /beers?parameters=JSON_STRING*
+{"beers": [
+ {
+        "abv": 5.0,
+        "brewery": "Jackie O's",
+        "favorite_count": 44,
+        "ibu": 45,
+        "id": 1,
+        "limited_release": false,
+        "name": "Firefly Amber",
+        "rate_beer_id": 111588,
+        "taste_count": 100
+    },
+    {
+        "abv": 5.0,
+        "brewery": "Jackie O's",
+        "favorite_count": 52,
+        "ibu": 123,
+        "id": 2,
+        "limited_release": false,
+        "name": "Firefly Amber",
+        "rate_beer_id": 111588,
+        "taste_count": 126
+    }
+  ]
+}
+
+*GET /establishments* 
+*GET /establishments?parameters=JSON_STRING*
 
 Data:
 ```json
@@ -53,35 +80,23 @@ Response:
     "establishments": [
         {
             "address": "",
-            "beers": [
+            "beer_statuses": [
                 {
-                    "abv": 5.0,
-                    "brewery": "Jackie O's",
-                    "favorite_count": 44,
-                    "ibu": 45,
                     "id": 1,
-                    "limited_release": false,
-                    "name": "Firefly Amber",
-                    "rate_beer_id": 111588,
-                    "status": "available",
-                    "taste_count": 100
+                    "status": "tapped",
                 },
                 {
-                    "abv": 5.0,
-                    "brewery": "Jackie O's",
-                    "favorite_count": 52,
-                    "ibu": 123,
                     "id": 2,
-                    "limited_release": false,
-                    "name": "Firefly Amber",
-                    "rate_beer_id": 111588,
-                    "status": "available",
-                    "taste_count": 126
+                    "status": "untapped",
+                },
+                {
+                    "id": 3,
+                    "status": "empty",
                 }
             ],
             "id": 1,
-            "lat": "",
-            "lon": "",
+            "lat": "39.236",
+            "lon": "-82.015",
             "name": "Jackie O's"
         }
     ]
@@ -95,10 +110,10 @@ Data:
 ```json
 {
   "beer_id": 123,
-  "guid": "GUID",
+  "device_guid": "GUID",
   "age":  35,
-  "lat": "X",
-  "lon": "Y",
+  "lat": "Y",
+  "lon": "X",
 }
 ```
 
@@ -117,10 +132,10 @@ Data:
 ```json
 {
   "beer_id": 2,
-  "guid": "GUID",
+  "device_guid": "GUID",
   "age":  43,
-  "lat": "X",
-  "lon": "Y",
+  "lat": "Y",
+  "lon": "X",
 }
 ```
 
@@ -132,7 +147,10 @@ Response:
 }
 ```
 
-PUT /establishment/:establishment_id/beer/:beer_id/
+
+** Implement Later **
+
+PUT /establishments/:establishment_id/beer/:beer_id/
 Data:
 ```json
 {
