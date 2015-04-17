@@ -14,6 +14,7 @@ id short
 ,ibu short
 ,abv float
 ,limited_release bool
+,description text
 );
 
 create table likes(
@@ -21,6 +22,7 @@ device_guid text
 ,beer_id short
 ,age short
 ,like_type short/text
+,like_status bool
 );
 
 create table status(
@@ -30,3 +32,5 @@ establishment_id short
 ,reported_out_count short
 ,last_out_update datetime
 );
+
+
