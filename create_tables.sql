@@ -4,7 +4,6 @@ id int unsigned not null primary key
 ,lat  float
 ,long float
 ,address varchar(100)
-,beers int[] unsigned
 );
 
 create table beers(
@@ -25,7 +24,7 @@ device_guid varchar(255)
 ,like_status bool
 );
 
-create table status(
+create table statuses(
 establishment_id int unsigned
 ,beer_id int unsigned
 ,status tinyint unsigned
