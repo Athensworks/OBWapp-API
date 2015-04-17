@@ -116,6 +116,26 @@ Response:
 
 ```
 
+*GET /establishment/:establishment_id/beer_statuses* 
+```json
+{ "beer_statuses": [
+    {
+        "id": 1,
+        "status": "tapped",
+    },
+    {
+        "id": 2,
+        "status": "untapped",
+    },
+    {
+        "id": 3,
+        "status": "empty",
+    }
+]}
+```
+
+
+
 *POST  /taste*
 
 Data:
