@@ -113,8 +113,13 @@ var liker = function(req, res, like) {
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
-      if (result.affectedRows == 0) {
+      console.log("DEBUG 116 %s", result);
+      console.log("DEBUG 117 %s", like.type_id);
+
+      if (result.affectedRows === 0) {
         connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like.type_id}, function(err, result) {
+          console.log("DEBUG 121 %s", result);
+
           likeResponse(beer_id, like, res);
         })
       } else {
