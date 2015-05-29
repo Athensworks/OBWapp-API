@@ -21,6 +21,20 @@ app.get('/', function (req, res) {
 app.get('/beers', function(req, res) {
   res.type('json');
 
+  /*
+  I think something like this will work instead:
+  
+  SELECT * FROM beers LEFT JOIN ON (
+    SELECT likes.beer_id, count(*) AS tastes
+    FROM likes
+    WHERE likes.like_type = 1
+    GROUP BY likes.beer_id
+    ) tastes ON tastes.beer_id = beers.id;
+
+    The subquery counts all the tastes for each beer and
+    then we just join it with the beers table based on id.
+
+   */
   var sql = "SELECT *,COUNT(likes.beer_id) AS taste_count FROM beers LEFT JOIN likes ON beers.id = likes.beer_id WHERE likes.like_type = 1 OR likes.like_type IS NULL GROUP BY likes.beer_id";
 
   connection.query(sql, function(err, rows) {
