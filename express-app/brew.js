@@ -1,3 +1,4 @@
+
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
@@ -11,8 +12,8 @@ var connection = mysql.createConnection({
 connection.connect();
 
 app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
 
- 
 app.get('/', function (req, res) {
   res.send('Brew Week App request from ' + req.ip);
 });
@@ -83,19 +84,14 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   res.send('beer status for establishment ' + req.params.estid);
 });
 
-{
-  "beer_id": 123,
-  "device_guid": "GUID",
-  "age":  35,
-  "lat": "Y",
-  "lon": "X",
-}
-
 app.post('/taste', function (req, res) {
   var like_type   = "taste";
   var beer_id     = req.body.beer_id;
   var device_guid = req.body.device_guid;
   var age         = req.body.age;
+
+  console.log('%s',JSON.stringify(req.body));
+  console.log(req.body.beer_id);
 
   var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
   var inserts = [device_guid, beer_id, like_type];
