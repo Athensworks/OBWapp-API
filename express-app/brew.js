@@ -98,7 +98,7 @@ app.post('/taste', function (req, res) {
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
-    if result.affectedRows == 0 {
+    if result.affectedRows() == 0 {
       connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
         res.json(likeResponse(beer_id, like_type));
       })
