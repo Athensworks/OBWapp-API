@@ -90,16 +90,16 @@ app.post('/taste', function (req, res) {
   var device_guid = req.body.device_guid;
   var age         = req.body.age;
 
-  console.log('%s',JSON.stringify(req.body));
-  console.log(req.body.beer_id);
-
   var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
   var inserts = [device_guid, beer_id, like_type];
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
+    console.log(result);
     if (result.affectedRows == 0) {
       connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
+        console.log(result);
+        console.log(likeResponse(beer_id, like_type));
         res.json(likeResponse(beer_id, like_type));
       })
     } else {
