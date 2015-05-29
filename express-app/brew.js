@@ -85,19 +85,19 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
 });
 
 app.post('/taste', function (req, res) {
-  like = {
+  var like = {
     type_id: 1,
     type: "taste"
-  }
+  };
 
   liker(req, res, like);
 });
 
 app.post('/favorite', function (req, res) {
-  like = {
+  var like = {
     type_id: 2,
     type: "favorite"
-  }
+  };
 
   liker(req, res, like);
 });
