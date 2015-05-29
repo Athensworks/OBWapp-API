@@ -1,3 +1,4 @@
+
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
@@ -11,7 +12,7 @@ var connection = mysql.createConnection({
 connection.connect();
 
 app.use(bodyParser.json());
-
+//app.use(bodyParser.urlencoded({ extended: true }));
  
 app.get('/', function (req, res) {
   res.send('Brew Week App request from ' + req.ip);
@@ -84,6 +85,10 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
 });
 
 app.post('/taste', function (req, res) {
+
+  console.log('%s',JSON.stringify(req.body));
+   console.log(req.body.beer_id);
+  res.json(req.body);
 
   connection.query('SELECT * from beers', function(err, rows, fields) {
 
