@@ -97,17 +97,15 @@ app.post('/taste', function (req, res) {
   connection.query(sql, function(err, result) {
     if (result.affectedRows == 0) {
       connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
-        console.log(result);
-        console.log(likeResponse(beer_id, like_type));
-        res.json(likeResponse(beer_id, like_type));
+        likeResponse(beer_id, like_type, res);
       })
     } else {
-      res.json(likeResponse(beer_id, like_type));
+      likeResponse(beer_id, like_type, res);
     }
   });
 });
 
-var likeResponse = function(beer_id, like_type) {
+var likeResponse = function(beer_id, like_type, res) {
   var sql = "SELECT COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
   var inserts = [beer_id, like_type];
   sql = mysql.format(sql, inserts);
@@ -117,15 +115,16 @@ var likeResponse = function(beer_id, like_type) {
 
     var object = {
       beer_id: beer_id,
-      taste_count: result[0]
+      taste_count: countFromRow(result[0])
     };
 
-    console.log(JSON.stringify(object));
-
-    return object;
+    res.json(object);
   });
 };
 
+var countFromRow = function(row) {
+  return row["COUNT(*)"];
+}
 var server = app.listen(3000, function () {
 
   var host = server.address().address;
