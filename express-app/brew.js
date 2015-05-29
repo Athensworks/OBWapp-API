@@ -85,31 +85,49 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
 });
 
 app.post('/taste', function (req, res) {
-  var like_type   = 1;
+  like = {
+    type_id: 1,
+    type: "taste"
+  }
+
+  liker(req, res, like);
+});
+
+app.post('/favorite', function (req, res) {
+  like = {
+    type_id: 2,
+    type: "favorite"
+  }
+
+  liker(req, res, like);
+});
+
+var liker = function(req, res, like) {
   var beer_id     = req.body.beer_id;
   var device_guid = req.body.device_guid;
   var age         = req.body.age;
 
   var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
-  var inserts = [device_guid, beer_id, like_type];
+  var inserts = [device_guid, beer_id, like.type_id];
   sql = mysql.format(sql, inserts);
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
       if (result.affectedRows == 0) {
-        connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
-          likeResponse(beer_id, like_type, res);
+        connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like.type_id}, function(err, result) {
+          likeResponse(beer_id, like, res);
         })
       } else {
-        likeResponse(beer_id, like_type, res);
+        likeResponse(beer_id, like, res);
       }
     });
   });
-});
 
-var likeResponse = function(beer_id, like_type, res) {
+}
+
+var likeResponse = function(beer_id, like, res) {
   var sql = "SELECT COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
-  var inserts = [beer_id, like_type];
+  var inserts = [beer_id, like.type_id];
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
@@ -118,7 +136,7 @@ var likeResponse = function(beer_id, like_type, res) {
     var object = {
       beer_id: beer_id,
       count: countFromRow(result[0]),
-      like_type: like_type
+      like_type: like.type
     };
 
     res.json(object);
