@@ -17,6 +17,7 @@ id int unsigned not null primary key
 );
 
 create table likes(
+id int unsigned not null primary key,
 device_guid varchar(255)
 ,beer_id int unsigned
 ,age tinyint unsigned
