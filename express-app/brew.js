@@ -94,14 +94,16 @@ app.post('/taste', function (req, res) {
   var inserts = [device_guid, beer_id, like_type];
   sql = mysql.format(sql, inserts);
 
-  connection.query(sql, function(err, result) {
-    if (result.affectedRows == 0) {
-      connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
+  connection.beginTransaction(function(err){
+    connection.query(sql, function(err, result) {
+      if (result.affectedRows == 0) {
+        connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
+          likeResponse(beer_id, like_type, res);
+        })
+      } else {
         likeResponse(beer_id, like_type, res);
-      })
-    } else {
-      likeResponse(beer_id, like_type, res);
-    }
+      }
+    });
   });
 });
 
@@ -111,7 +113,7 @@ var likeResponse = function(beer_id, like_type, res) {
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
-    console.log(result);
+    connection.commit(function(error){});
 
     var object = {
       beer_id: beer_id,
