@@ -83,16 +83,49 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   res.send('beer status for establishment ' + req.params.estid);
 });
 
+{
+  "beer_id": 123,
+  "device_guid": "GUID",
+  "age":  35,
+  "lat": "Y",
+  "lon": "X",
+}
+
 app.post('/taste', function (req, res) {
+  var like_type   = "taste";
+  var beer_id     = req.body.beer_id;
+  var device_guid = req.body.device_guid;
+  var age         = req.body.age;
 
-  connection.query('SELECT * from beers', function(err, rows, fields) {
+  var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
+  var inserts = [device_guid, beer_id, like_type];
+  sql = mysql.format(sql, inserts);
 
-	if (err) throw err;
-	res.json(rows);
+  connection.query(sql, function(err, result) {
+    if result.affectedRows == 0 {
+      connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
+        res.json(likeResponse(beer_id, like_type));
+      })
+    } else {
+      res.json(likeResponse(beer_id, like_type));
+    }
   });
-
 });
 
+var likeResponse = function(beer_id, like_type) {
+  var sql = "COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
+  var inserts = [beer_id, like_type];
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+    var object = {
+      beer_id: beer_id,
+      taste_count: result[0];
+    };
+
+    return object;
+  });
+};
 
 var server = app.listen(3000, function () {
 
