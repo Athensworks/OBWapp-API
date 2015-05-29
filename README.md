@@ -153,7 +153,8 @@ Response:
 ```json
 {
   "beer_id": 123,
-  "taste_count": 52
+  "count": 52,
+  "like_type": "taste"
 }
 ```
 
@@ -175,7 +176,8 @@ Response:
 ```json
 {
   "beer_id": 2,
-  "favorite_count": 192
+  "count": 192,
+  "like_type": "favorite"
 }
 ```
 
