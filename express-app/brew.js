@@ -116,7 +116,7 @@ var likeResponse = function(beer_id, like_type) {
   connection.query(sql, function(err, result) {
     var object = {
       beer_id: beer_id,
-      taste_count: result[0];
+      taste_count: result[0]
     };
 
     return object;
