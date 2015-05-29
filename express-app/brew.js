@@ -13,7 +13,7 @@ connection.connect();
 
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
- 
+
 app.get('/', function (req, res) {
   res.send('Brew Week App request from ' + req.ip);
 });
@@ -85,19 +85,43 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
 });
 
 app.post('/taste', function (req, res) {
+  var like_type   = "taste";
+  var beer_id     = req.body.beer_id;
+  var device_guid = req.body.device_guid;
+  var age         = req.body.age;
 
   console.log('%s',JSON.stringify(req.body));
-   console.log(req.body.beer_id);
-  res.json(req.body);
+  console.log(req.body.beer_id);
 
-  connection.query('SELECT * from beers', function(err, rows, fields) {
+  var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
+  var inserts = [device_guid, beer_id, like_type];
+  sql = mysql.format(sql, inserts);
 
-	if (err) throw err;
-	res.json(rows);
+  connection.query(sql, function(err, result) {
+    if result.affectedRows == 0 {
+      connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
+        res.json(likeResponse(beer_id, like_type));
+      })
+    } else {
+      res.json(likeResponse(beer_id, like_type));
+    }
   });
-
 });
 
+var likeResponse = function(beer_id, like_type) {
+  var sql = "COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
+  var inserts = [beer_id, like_type];
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+    var object = {
+      beer_id: beer_id,
+      taste_count: result[0];
+    };
+
+    return object;
+  });
+};
 
 var server = app.listen(3000, function () {
 
