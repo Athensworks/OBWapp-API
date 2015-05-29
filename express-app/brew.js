@@ -95,7 +95,6 @@ app.post('/taste', function (req, res) {
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
-    console.log(result);
     if (result.affectedRows == 0) {
       connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like_type}, function(err, result) {
         console.log(result);
@@ -114,10 +113,14 @@ var likeResponse = function(beer_id, like_type) {
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
+    console.log(result);
+
     var object = {
       beer_id: beer_id,
       taste_count: result[0]
     };
+
+    console.log(JSON.stringify(object));
 
     return object;
   });
