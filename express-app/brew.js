@@ -85,7 +85,7 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
 });
 
 app.post('/taste', function (req, res) {
-  var like_type   = "taste";
+  var like_type   = 1;
   var beer_id     = req.body.beer_id;
   var device_guid = req.body.device_guid;
   var age         = req.body.age;
@@ -109,7 +109,7 @@ app.post('/taste', function (req, res) {
 });
 
 var likeResponse = function(beer_id, like_type) {
-  var sql = "COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
+  var sql = "SELECT COUNT(*) FROM likes WHERE beer_id = ? AND like_type = ?";
   var inserts = [beer_id, like_type];
   sql = mysql.format(sql, inserts);
 
