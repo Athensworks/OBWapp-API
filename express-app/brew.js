@@ -115,7 +115,8 @@ var likeResponse = function(beer_id, like_type, res) {
 
     var object = {
       beer_id: beer_id,
-      taste_count: countFromRow(result[0])
+      count: countFromRow(result[0]),
+      like_type: like_type
     };
 
     res.json(object);
