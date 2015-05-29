@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 app.get('/beers', function(req, res) {
   res.type('json');
 
-  var sql = "SELECT *,COUNT(likes.beer_id) AS taste_count FROM beers LEFT JOIN likes ON beers.beer_id = likes.beer_id WHERE likes.like_type = 1 OR likes.like_type IS NULL GROUPBY likes.beer_id"
+  var sql = "SELECT *,COUNT(likes.beer_id) AS taste_count FROM beers LEFT JOIN likes ON beers.id = likes.beer_id WHERE likes.like_type = 1 OR likes.like_type IS NULL GROUPBY likes.beer_id"
 
   connection.query(sql, function(err, rows) {
     res.json({ beers: rows });
