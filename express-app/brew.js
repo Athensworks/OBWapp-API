@@ -3,13 +3,35 @@ var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var app = express();
-var connection = mysql.createConnection({
+var db_test = {
 	host : 'localhost',
 	user : 'drunk',
 	password : 'bartender12345',
-	database : 'testbrew' });
+	database : 'testbrew' };
 
-connection.connect();
+var connection;
+
+function dbMgr() {
+  connection = mysql.createConnection(db_test);
+
+  connection.connect(function(err) {
+    if(err) {
+      console.log('ERROR: Unable to connect to MySQL server: ', err);
+      setTimeout(dbMgr, 2500);
+    }
+  });
+
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      dbMgr();
+    } else {
+      throw err;
+    }
+ });
+}
+
+dbMgr();
 
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
