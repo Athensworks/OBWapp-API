@@ -33,6 +33,7 @@ Beers
   * guid STRING
   * age INTEGER
 
+## `GET /beers`
 *GET /beers*
 ```json
 {"beers": [
@@ -72,8 +73,8 @@ Beers
 }
 ```
 
-*GET /establishments* 
-
+## `GET /establishments`
+*GET /establishments*
 *GET /establishments?parameters=JSON_STRING*
 
 Data:
@@ -115,6 +116,7 @@ Response:
 }
 
 ```
+## `GET /establishment/:establishment_id/beer_statuses`
 
 *GET /establishment/:establishment_id/beer_statuses* 
 ```json
@@ -135,6 +137,7 @@ Response:
 ```
 
 
+## `POST  /taste`
 
 *POST  /taste*
 
@@ -158,7 +161,7 @@ Response:
 }
 ```
 
-
+## `POST  /favorite`
 *POST  /favorite*
 
 Data:
@@ -181,10 +184,11 @@ Response:
 }
 ```
 
+# Implement Later
 
-** Implement Later **
+## `PUT /establishments/:establishment_id/beer/:beer_id/`
+*PUT /establishments/:establishment_id/beer/:beer_id/*
 
-PUT /establishments/:establishment_id/beer/:beer_id/
 Data:
 ```json
 {
