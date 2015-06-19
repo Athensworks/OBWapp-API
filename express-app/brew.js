@@ -65,7 +65,6 @@ app.get('/beers', function(req, res) {
 
 });
 
-
 app.get('/establishments', function (req, res) {
   res.type('json');
 
@@ -81,32 +80,33 @@ app.get('/establishments', function (req, res) {
 
         while (rows[rowcount]) {
 		keeploop = 1;
+		bcnt = 0;
                 prow.push({});
                 prow[pcnt].address = rows[rowcount].address;
                 prow[pcnt].beer_statuses = [];
                 while (keeploop) {
                     prow[pcnt].beer_statuses.push({});
-                    prow[pcnt].beer_statuses[bscnt].id = rows[bscnt].beer_id;
+                    prow[pcnt].beer_statuses[bcnt].id = rows[bscnt].beer_id;
                     switch(rows[bscnt].status) {
                         case 4:
-                                prow[pcnt].beer_statuses[bscnt].status = "empty-reported";
+                                prow[pcnt].beer_statuses[bcnt].status = "empty-reported";
                                 break;
 
                         case 3:
-                                prow[pcnt].beer_statuses[bscnt].status = "empty";
+                                prow[pcnt].beer_statuses[bcnt].status = "empty";
                                 break;
 
                         case 2:
-                                prow[pcnt].beer_statuses[bscnt].status = "tapped";
+                                prow[pcnt].beer_statuses[bcnt].status = "tapped";
                                 break;
 
                         case 1:
-                                prow[pcnt].beer_statuses[bscnt].status = "untapped";
+                                prow[pcnt].beer_statuses[bcnt].status = "untapped";
                                 break;
 
                         default:
                         case 0:
-                                prow[pcnt].beer_statuses[bscnt].status = "unknown";
+                                prow[pcnt].beer_statuses[bcnt].status = "unknown";
                                 break;
                     }
                     if (bscnt == rows.length) {
