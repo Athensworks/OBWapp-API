@@ -10,6 +10,7 @@ var db_test = {
 	database : 'database1234' };
 
 var connection;
+var beer_status_names = ["unknown", "untapped", "tapped", "empty", "empty-reported"];
 
 function dbMgr() {
   connection = mysql.createConnection(db_test);
@@ -123,9 +124,16 @@ app.get('/establishments', function (req, res) {
   });
 });
 
-
 app.get('/establishment/:estid/beer_statuses', function (req, res) {
-  res.send('beer status for establishment ' + req.params.estid);
+  res.type('json');
+  var sql = "SELECT * FROM statuses WHERE statuses.establishment_id = " + req.params.estid + ";";
+  connection.query(sql, function (err, rows) {
+	  var beer_statuses = [];
+	  for (i = 0; i < rows.length; i++) {
+		  beer_statuses.push({ id: rows[i].beer_id, status: beer_status_names[rows[i].status] });
+	  }
+	  res.json({ beer_statuses: beer_statuses });
+  });
 });
 
 app.post('/taste', function (req, res) {
