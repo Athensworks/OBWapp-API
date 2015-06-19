@@ -67,27 +67,12 @@ app.get('/beers', function(req, res) {
 
 app.get('/establishments', function (req, res) {
   res.type('json');
-  res.json(
-{
-  "establishments": [{
-    "address": "24 W. Union St. Athens OH 45701",
-    "beer_statuses": [{
-      "id": 1,
-      "status": "tapped",
-    }, {
-      "id": 2,
-      "status": "untapped",
-    }, {
-      "id": 3,
-      "status": "empty",
-    }],
-    "id": 1,
-    "lat": "39.236",
-    "lon": "-82.015",
-    "name": "Jackie O's"
-  }]
-});
 
+  var sql = "SELECT * from establishments;"
+
+  connection.query(sql, function(err, rows) {
+     res.json({ establishments: rows });
+  });
 });
 
 app.get('/establishment/:estid/beer_statuses', function (req, res) {
