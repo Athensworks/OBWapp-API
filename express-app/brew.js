@@ -115,6 +115,7 @@ app.get('/establishments', function (req, res) {
                         keeploop = 0;
                     } else {
                         bscnt++;
+			bcnt++;
                     }
                 }
                 prow[pcnt].id = rows[rowcount].id;
