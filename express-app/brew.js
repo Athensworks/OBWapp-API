@@ -123,7 +123,7 @@ app.get('/establishments', function (req, res) {
                 prow[pcnt].lon = rows[rowcount].lon;
                 prow[pcnt].name = rows[rowcount].name;
 
-                if (rows.length >= (rowcount + bscnt + 1)) {
+                if (rows.length >= (rowcount + bcnt + 1)) {
                         rowcount = rowcount + bcnt + 1;
                         pcnt++;
 			bscnt++;
