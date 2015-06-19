@@ -65,15 +65,78 @@ app.get('/beers', function(req, res) {
 
 });
 
+
 app.get('/establishments', function (req, res) {
   res.type('json');
 
   var sql = "select establishments.*, statuses.* FROM establishments, statuses WHERE establishments.id = statuses.establishment_id ORDER BY establishments.id;"
 
   connection.query(sql, function(err, rows) {
-     res.json({ establishments: rows });
+        var prow = [];
+        var pcnt = 0;
+        var bcnt = 0;
+        var rowcount = 0;
+        var bscnt = 0;
+        var keeploop = 1;
+
+        while (rows[rowcount]) {
+                console.log('debug 1');
+                prow.push({});
+                console.log('debug 2');
+                prow[pcnt].address = rows[rowcount].address;
+                console.log('debug 3');
+                prow[pcnt].beer_statuses = [];
+                while (keeploop) {
+                    prow[pcnt].beer_statuses.push({});
+                    prow[pcnt].beer_statuses[bscnt].id = rows[bscnt].beer_id;
+                    switch(rows[bscnt].status) {
+                        case 4:
+                                prow[pcnt].beer_statuses[bscnt].status = "empty-reported";
+                                break;
+
+                        case 3:
+                                prow[pcnt].beer_statuses[bscnt].status = "empty";
+                                break;
+
+                        case 2:
+                                prow[pcnt].beer_statuses[bscnt].status = "tapped";
+                                break;
+
+                        case 1:
+                                prow[pcnt].beer_statuses[bscnt].status = "untapped";
+                                break;
+
+                        default:
+                        case 0:
+                                prow[pcnt].beer_statuses[bscnt].status = "unknown";
+                                break;
+                    }
+                    if (bscnt == rows.length) {
+                        keeploop = 0;
+                    } else if (rows[bscnt].establishment_id < rows[bscnt+1].establishment_id) {
+                        keeploop = 0;
+                    } else {
+                        bscnt++;
+                    }
+                }
+                prow[pcnt].id = rows[rowcount].id;
+                prow[pcnt].lat = rows[rowcount].lat;
+                prow[pcnt].lon = rows[rowcount].lon;
+                prow[pcnt].name = rows[rowcount].name;
+
+                if (rows.length >= (rowcount + bscnt + 1)) {
+                        rowcount = rowcount + bscnt + 1;
+                        pcnt++;
+                } else {
+                        console.log('ERROR: length is %s, count is %s, beer count is %s',rows.length, rowcount, bscnt);
+                        rowcount = rows.length;
+                }
+        }
+
+        res.json({ establishments: prow });
   });
 });
+
 
 app.get('/establishment/:estid/beer_statuses', function (req, res) {
   res.send('beer status for establishment ' + req.params.estid);
