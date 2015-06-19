@@ -80,11 +80,9 @@ app.get('/establishments', function (req, res) {
         var keeploop = 1;
 
         while (rows[rowcount]) {
-                console.log('debug 1');
+		keeploop = 1;
                 prow.push({});
-                console.log('debug 2');
                 prow[pcnt].address = rows[rowcount].address;
-                console.log('debug 3');
                 prow[pcnt].beer_statuses = [];
                 while (keeploop) {
                     prow[pcnt].beer_statuses.push({});
