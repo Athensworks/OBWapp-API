@@ -68,7 +68,7 @@ app.get('/beers', function(req, res) {
 app.get('/establishments', function (req, res) {
   res.type('json');
 
-  var sql = "SELECT * from establishments;"
+  var sql = "select establishments.*, statuses.* FROM establishments, statuses WHERE establishments.id = statuses.establishment_id ORDER BY establishments.id;"
 
   connection.query(sql, function(err, rows) {
      res.json({ establishments: rows });
