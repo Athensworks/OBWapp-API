@@ -109,7 +109,7 @@ app.get('/establishments', function (req, res) {
                                 prow[pcnt].beer_statuses[bcnt].status = "unknown";
                                 break;
                     }
-                    if (bscnt == rows.length) {
+                    if (bscnt == rows.length - 1) {
                         keeploop = 0;
                     } else if (rows[bscnt].establishment_id < rows[bscnt+1].establishment_id) {
                         keeploop = 0;
@@ -124,7 +124,7 @@ app.get('/establishments', function (req, res) {
                 prow[pcnt].name = rows[rowcount].name;
 
                 if (rows.length >= (rowcount + bscnt + 1)) {
-                        rowcount = rowcount + bscnt + 1;
+                        rowcount = rowcount + bcnt + 1;
                         pcnt++;
 			bscnt++;
                 } else {
