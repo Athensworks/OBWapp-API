@@ -16,6 +16,15 @@ Establishments
   * last_out_update DATETIME
 
 
+Note status is stored in the db as int so we will return:
+
+* unknown = 0
+* untapped = 1
+* tapped = 2
+* empty = 3
+* empty reported = 4
+
+
 Beers
 -----
 
