@@ -126,6 +126,7 @@ app.get('/establishments', function (req, res) {
                 if (rows.length >= (rowcount + bscnt + 1)) {
                         rowcount = rowcount + bscnt + 1;
                         pcnt++;
+			bscnt++;
                 } else {
                         console.log('ERROR: length is %s, count is %s, beer count is %s',rows.length, rowcount, bscnt);
                         rowcount = rows.length;
