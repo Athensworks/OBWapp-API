@@ -169,7 +169,10 @@ var liker = function(req, res, like) {
       console.log("DEBUG 117 %s", like.type_id);
 
       if (result.affectedRows === 0) {
-        connection.query('INSERT INTO likes SET ?', {device_guid: device_guid, beer_id: beer_id, age: age, like_type: like.type_id}, function(err, result) {
+	var sqlinsert = "INSERT into likes (device_guid, beer_id, age, like_type) VALUES (?,?,?,?)";
+	var insinsert = [device_guide, beer_id, age, like.type_id];
+	sqlinsert = mysql.format(sqlinsert, insinsert);
+        connection.query(sqlinsert, function(err, result) {
           console.log("DEBUG 121 %s", result);
 
           likeResponse(beer_id, like, res);

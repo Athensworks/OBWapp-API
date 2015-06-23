@@ -18,12 +18,13 @@ rate_beer_id varchar(64)
 );
 
 create table likes(
-id int unsigned not null primary key,
+id int unsigned not null auto_increment,
 device_guid varchar(255),
 beer_id int unsigned,
 age tinyint unsigned,
 like_type tinyint unsigned,
-like_status bool
+like_status bool,
+primary key(id)
 );
 
 create table statuses(
