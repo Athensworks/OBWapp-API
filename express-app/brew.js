@@ -165,16 +165,11 @@ var liker = function(req, res, like) {
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
-      console.log("DEBUG 116 %s", result.affectedRows);
-      console.log("DEBUG 117 %s", like.type_id);
-
       if (result.affectedRows === 0) {
 	var sqlinsert = "INSERT into likes (device_guid, beer_id, age, like_type) VALUES (?,?,?,?)";
 	var insinsert = [device_guid, beer_id, age, like.type_id];
 	sqlinsert = mysql.format(sqlinsert, insinsert);
         connection.query(sqlinsert, function(err, result) {
-          console.log("DEBUG 121 %s", result);
-
           likeResponse(beer_id, like, res);
         })
       } else {
