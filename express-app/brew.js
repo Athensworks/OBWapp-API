@@ -165,7 +165,7 @@ var liker = function(req, res, like) {
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
-      console.log("DEBUG 116 %s", result);
+      console.log("DEBUG 116 %s", result.affectedRows);
       console.log("DEBUG 117 %s", like.type_id);
 
       if (result.affectedRows === 0) {
