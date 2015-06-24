@@ -143,8 +143,6 @@ app.put('/establishments/:est_id/beer/:beer_id', function (req, res) {
   var establishment_id = req.params.est_id;
   var beer_id = req.params.beer_id;
 
-  console.log('%s %s %s',device_guid, establishment_id, beer_id);
-
   beer_reporter(beer_id, establishment_id, device_guid, req, res);
 });
 

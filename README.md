@@ -353,19 +353,20 @@ Data:
 ```
 
 
-# Implement Later
-
 ## `PUT /establishments/:establishment_id/beer/:beer_id/`
 *PUT /establishments/:establishment_id/beer/:beer_id/*
 
 Data:
 ```json
 {
-  "status": "empty-reported"
+  "device_guid": "d43db411-58d6-4271-81d6-e3192d9c3ef7"
 }
 ```
 
-Response:
+Response: 200 OK - if not already reported, 403 Forbidden - if already reported, 404 Not Found - if not found
+
+Original API wanted to do this, but I remapped it to /report - feel free to change it! :)
+
 ```json
 {
   "establishment_id": 1,
