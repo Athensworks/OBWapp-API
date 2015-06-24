@@ -145,7 +145,7 @@ app.put('/report', function (req, res) {
   sqlcheck = mysql.format(sqlcheck, inscheck);
 
   connection.beginTransaction(function(err){
-    connection.query(sql, function(err, result) {
+    connection.query(sqlcheck, function(err, result) {
      if (result.length == 1) {
         res.sendStatus(403);
      } else {
