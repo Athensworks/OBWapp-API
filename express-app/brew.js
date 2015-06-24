@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 var app = express();
 var db_test = {
 	host : 'localhost',
-	user : 'drunk',
-	password : 'bartender12345',
-	database : 'testbrew' };
+	user : 'username1234',
+	password : 'password1234',
+	database : 'database1234' };
 
 var connection;
 var beer_status_names = ["unknown", "untapped", "tapped", "empty", "empty-reported"];
