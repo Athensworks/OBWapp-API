@@ -147,6 +147,7 @@ app.post('/report', function (req, res) {
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
+      console.log('results = %s', result);
       if (result.rows === 1) {
         var reportcount = result[0].reported_out_count + 1;
 	var sqlupdate = "UPDATE statuses SET status = 4, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
