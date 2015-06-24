@@ -266,7 +266,7 @@ app.post('/admin/establishments', function (req, res) {
     if (result.length == 1) {
 	res.sendStatus(403);
     } else {
-	var sqladd = "INSERT into establishments (name, lat, lon, address) VALUES (?,?,?,?);
+	var sqladd = "INSERT into establishments (name, lat, lon, address) VALUES (?,?,?,?)";
 	var insadd = [estname, estlat, estlon, estaddr];
 	sqladd = mysql.format(sqladd, insadd);
 
