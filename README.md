@@ -205,6 +205,50 @@ Data:
 }
 ```
 
+# Admin Interface
+
+## `POST /admin/establishments`
+*POST /admin/establishments*
+
+Data:
+```json
+{
+  "name": "Some Random Pub",
+  "address": "44 Court Street, Athens, OH 45701",
+  "lon": "123.4567",
+  "lat": "456.7890"
+}
+
+```
+
+## `PUT /admin/establishments`
+*PUT /admin/establishments*
+
+Data:
+```json
+{
+  "id": "1",
+  "name": "Some Random Pub",
+  "address": "44 Court Street, Athens, OH 45701",
+  "lon": "123.4567",
+  "lat": "456.7890"
+}  
+
+```
+
+## `DELETE /admin/establishments`
+*DELETE /admin/establishments*
+
+Data:
+```json
+{
+  "id": "1",
+  "name": "Some Random Pub",
+  "address": "44 Court Street, Athens, OH 45701"
+}
+
+```
+
 # Implement Later
 
 ## `PUT /establishments/:establishment_id/beer/:beer_id/`
