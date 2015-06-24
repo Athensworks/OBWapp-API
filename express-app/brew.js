@@ -138,7 +138,7 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   });
 });
 
-router.put('/establishments/:est_id/beer/:beer_id', function (req, res) {
+app.put('/establishments/:est_id/beer/:beer_id', function (req, res) {
   var device_guid = req.body.device_guid;
   var establishment_id = req.params.est_id;
   var beer_id = req.params.beer_id;
