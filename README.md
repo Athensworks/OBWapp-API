@@ -207,6 +207,8 @@ Data:
 
 # Admin Interface
 
+Note: Admin interface returns 200 (OK), 404 (Not Found) or 403 (Forbidden)
+
 ## `POST /admin/establishments`
 *POST /admin/establishments*
 
@@ -247,6 +249,51 @@ Data:
   "address": "44 Court Street, Athens, OH 45701"
 }
 
+```
+
+## `POST /admin/beers`
+*POST /admin/beers*
+
+Data:
+```json
+{
+  "name": "Ricky IPA",
+  "brewery": "Ball n Chain Buds",
+  "ibu": "40",
+  "abv": "5.6",
+  "limited_release": "1",
+  "description": "An IPA that you can't get drunk on",
+  "rate_beer_id": "5551234"
+}
+```
+
+## `PUT /admin/beers`
+*PUT /admin/beers*
+
+Data:
+```json
+{
+  "id": "1",
+  "name": "Ricky IPA",
+  "brewery": "Ball n Chain Buds",
+  "ibu": "40",
+  "abv": "5.6",
+  "limited_release": "1",
+  "description": "An IPA that you can't get drunk on",
+  "rate_beer_id": "5551234"
+}
+```
+
+## 'DELETE /admin/beers`
+*DELETE /admin/beers*
+
+Data:
+```json
+{
+  "id": "1",
+  "name": "Ricky IPA",
+  "brewery": "Ball n Chain Buds"
+}
 ```
 
 # Implement Later
