@@ -284,7 +284,7 @@ Data:
 }
 ```
 
-## 'DELETE /admin/beers`
+## `DELETE /admin/beers`
 *DELETE /admin/beers*
 
 Data:
@@ -295,6 +295,44 @@ Data:
   "brewery": "Ball n Chain Buds"
 }
 ```
+
+## `POST /admin/statuses`
+*POST /admin/statuses*
+
+Data:
+```json
+{
+  "establishment_id": "1",
+  "beer_id": "1",
+  "status": "tapped"
+}
+```
+
+## `PUT /admin/statuses`
+*PUT /admin/statuses*
+
+note: This will only update the status, it uses the IDs to match
+
+Data:
+```json
+{
+  "establishment_id": "1",
+  "beer_id": "1",
+  "status": "empty"
+}
+```
+
+## `DELETE /admin/statuses`
+*DELETE /admin/statuses*
+
+Data:
+```json
+{
+  "establishment_id": "1",
+  "beer_id": "1",
+}
+```
+
 
 # Implement Later
 
