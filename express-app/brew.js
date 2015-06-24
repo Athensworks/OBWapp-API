@@ -189,7 +189,7 @@ var beer_reporter = function (beer_id, establishment_id, device_guid) {
         });
      }
   });
-);
+};
 
 app.post('/taste', function (req, res) {
   var like = {
