@@ -307,15 +307,13 @@ app.delete('/admin/establishments', function (req, res) {
   var estid   = req.body.id;
   var estname = req.body.name;
   var estaddr = req.body.address;
-  var estlon  = req.body.lon;
-  var estlat  = req.body.lat;
 
-  var sql = "DELETE FROM establishments WHERE id = ? AND name = ? AND address = ? AND lon = ? AND lat = ? LIMIT 1";
-  var inserts = [estid, estname, estaddr, estlon, estlat];
+  var sql = "DELETE FROM establishments WHERE id = ? AND name = ? AND address = ? LIMIT 1";
+  var inserts = [estid, estname, estaddr];
   sql = mysql.format(sql, inserts);
 
   connection.query(sql, function(err, result) {
-    if (result.length == 1) {
+    if (result.affectedRows == 1) {
 	res.sendStatus(200);
     } else {
 	res.sendStatus(404);
