@@ -1,20 +1,22 @@
 create table establishments(
-id int unsigned not null primary key,
+id int unsigned not null auto_increment,
 name varchar(100),
 lat  float,
 lon float,
-address varchar(100)
+address varchar(100),
+primary key(id)
 );
 
 create table beers(
-id int unsigned not null primary key,
+id int unsigned not null auto_increment,
 name varchar(100),
 brewery varchar(100),
 ibu smallint unsigned,
 abv float,
 limited_release bool,
 description text,
-rate_beer_id varchar(64)
+rate_beer_id varchar(64),
+primary key(id)
 );
 
 create table likes(
