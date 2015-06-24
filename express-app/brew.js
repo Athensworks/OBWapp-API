@@ -489,46 +489,66 @@ app.put('/admin/statuses', function (req, res) {
   var beer_id = req.body.beer_id;
   var status = req.body.status;
 
-  var sql = "SELECT * from statuses WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
-  var inserts = [est_id, beer_id];
+  var beersql = "SELECT * from beers WHERE id = ? LIMIT 1";
+  var beerins = [beer_id];
+  beersql = mysql.format(beersql, beerins);
 
-  sql = mysql.format(sql, inserts);
+  connection.query(beersql, function(err, result) {
+	if (result.length == 1) {
+	    var estsql = "SELECT * from establishments WHERE id = ? LIMIT 1";
+	    var estins = [est_id];
+	    estsql = mysql.format(estsql, estins);
+	    
+	    connection.query(estsql, function(err, result) {
+		if (result.length == 1) {
+			var sql = "SELECT * from statuses WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
+  			var inserts = [est_id, beer_id];
 
-  connection.query(sql, function(err, result) {
-	if (result.length == 0) {
-		res.sendStatus(404);
-	} else {
-		var numstatus;
-		switch(status) {
-			case "empty-reported":
-				numstatus = 4;
-				break;
+  			sql = mysql.format(sql, inserts);
 
-			case "empty":
-				numstatus = 3;
-				break;
+  			connection.query(sql, function(err, result) {
+				if (result.length == 0) {
+					res.sendStatus(404);
+				} else {
+					var numstatus;
+					switch(status) {
+						case "empty-reported":
+							numstatus = 4;
+							break;
 
-			case "tapped":
-				numstatus = 2;
-				break;
+						case "empty":
+							numstatus = 3;
+							break;
 
-			case "untapped":
-				numstatus = 1;
-				break;
+						case "tapped":
+							numstatus = 2;
+							break;
 
-			default:
-			case "unknown":
-				numstatus = 0;
-				break;
+						case "untapped":
+							numstatus = 1;
+							break;
+
+						default:
+						case "unknown":
+							numstatus = 0;
+							break;
+					}
+
+					var sqladd = "UPDATE statuses SET status = ?, reported_out_count = 0, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
+					var insadd = [numstatus, est_id, beer_id];
+
+					sqladd = mysql.format(sqladd, insadd);
+					connection.query(sqladd, function(err, result) {
+						res.sendStatus(200);
+					});
+				}
+  			});
+		} else {
+			res.sendStatus(404);
 		}
-
-		var sqladd = "UPDATE statuses SET status = ?, reported_out_count = 0, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
-		var insadd = [numstatus, est_id, beer_id];
-
-		sqladd = mysql.format(sqladd, insadd);
-		connection.query(sqladd, function(err, result) {
-			res.sendStatus(200);
-		});
+	    });
+	} else {
+		res.sendStatus(404);
 	}
   });
 });
