@@ -136,7 +136,7 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   });
 });
 
-app.post('/report', function (req, res) {
+app.put('/report', function (req, res) {
   var beer_id = req.body.beer_id;
   var establishment_id = req.body.establishment_id;
   var device_guid = req.body.device_guid;
