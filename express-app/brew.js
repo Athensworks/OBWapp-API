@@ -321,7 +321,7 @@ app.delete('/admin/establishments', function (req, res) {
   });
 });
 
-app.post('/admin/beer', function (req, res) {
+app.post('/admin/beers', function (req, res) {
   var beername = req.body.name;
   var beerbrew = req.body.brewery;
   var beeribu = req.body.ibu;
@@ -339,7 +339,7 @@ app.post('/admin/beer', function (req, res) {
 		res.sendStatus(403);
 	} else {
 		var sqladd = "INSERT into beers (name, brewery, ibu, abv, limited_release, description, rate_beer_id) VALUES (?,?,?,?,?,?,?)";
-		var insadd = [beername, beerbrew, beeribu, beerabv. beerlimited, beerdesc, beerrbid];
+		var insadd = [beername, beerbrew, beeribu, beerabv, beerlimited, beerdesc, beerrbid];
 		sqladd = mysql.format(sqladd, insadd);
 
 		connection.query(sqladd, function(err, result) {
