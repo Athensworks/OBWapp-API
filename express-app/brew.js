@@ -144,7 +144,6 @@ app.put('/report', function (req, res) {
   var inscheck = [device_guid, establishment_id, beer_id];
   sqlcheck = mysql.format(sqlcheck, inscheck);
 
-  connection.beginTransaction(function(err){
     connection.query(sqlcheck, function(err, result) {
      if (result.length == 1) {
         res.sendStatus(403);
@@ -173,7 +172,6 @@ app.put('/report', function (req, res) {
           });
      }
     });
-  });
 });
 
 app.post('/taste', function (req, res) {
