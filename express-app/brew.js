@@ -418,8 +418,32 @@ app.post('/admin/statuses', function (req, res) {
 	if (result.length == 1) {
 		res.sendStatus(403);
 	} else {
+		var numstatus;
+		switch(status) {
+			case "empty-reported":
+				numstatus = 4;
+				break;
+
+			case "empty":
+				numstatus = 3;
+				break;
+
+			case "tapped":
+				numstatus = 2;
+				break;
+
+			case "untapped":
+				numstatus = 1;
+				break;
+
+			default:
+			case "unknown":
+				numstatus = 0;
+				break;
+		}
+
 		var sqladd = "INSERT into statuses VALUES (?,?,?,0,NOW())";
-		var insadd = [est_id, beer_id, status];
+		var insadd = [est_id, beer_id, numstatus];
 
 		sqladd = mysql.format(sqladd, insadd);
 		connection.query(sqladd, function(err, result) {
