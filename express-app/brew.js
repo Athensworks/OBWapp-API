@@ -1,3 +1,6 @@
+var bwappname = "Brew Week App API";
+var bwversion = "1.0.0";
+var bwcopyright = "Copyright (c) 2015 Athensworks";
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
@@ -248,7 +251,10 @@ var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Brew Week app listening at http://%s:%s', host, port);
+  console.log('%s, %s', bwname, bwversion);
+  console.log('%s', bwcopyright);
+  console.log('');
+  console.log('Listening at http://%s:%s', host, port);
 
 });
 
