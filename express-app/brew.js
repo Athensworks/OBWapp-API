@@ -378,6 +378,24 @@ app.put('/admin/beers', function (req, res) {
   });
 });
 
+app.delete('/admin/beers', function (req, res) {
+  var beerid = req.body.id;
+  var beername = req.body.name;
+  var beerbrew = req.body.brewery;
+
+  var sql = "DELETE FROM beers WHERE id = ? AND name = ? AND brewery = ? LIMIT 1";
+  var inserts = [beerid, beername, beerbrew];
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+    if (result.affectedRows == 1) {
+	res.sendStatus(200);
+    } else {
+	res.sendStatus(404);
+    }
+  });
+});
+
 app.post('/admin/statuses', function (req, res) {
   res.sendStatus(200);
 });
