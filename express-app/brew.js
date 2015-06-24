@@ -251,7 +251,7 @@ var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('%s, %s', bwname, bwversion);
+  console.log('%s, %s', bwappname, bwversion);
   console.log('%s', bwcopyright);
   console.log('');
   console.log('Listening at http://%s:%s', host, port);
