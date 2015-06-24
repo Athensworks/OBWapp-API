@@ -160,14 +160,16 @@ app.put('/report', function (req, res) {
 		var sqlupdate = "UPDATE statuses SET status = 4, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
 		var insupdate = [reportcount, establishment_id, beer_id];
 		sqlupdate = mysql.format(sqlupdate, insupdate);
-        	connection.query(sqlupdate, function(err, result) {
+		connection.beginTransaction(function(err){
+        	  connection.query(sqlupdate, function(err, result) {
 		    var sqlrep = "INSERT into reportstate values (?,?,?,NOW())";
 		    var insrep = [device_guid, establishment_id, beer_id];
 		    sqlrep = mysql.format(sqlrep, insrep);
 		    connection.query(sqlrep, function(err, result) {
 			res.sendStatus(200);
 		    });
-        	});
+        	  });
+		});
       	    } else {
 	       res.sendStatus(404);
       	    }
