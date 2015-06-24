@@ -349,6 +349,35 @@ app.post('/admin/beers', function (req, res) {
   });
 });
 
+app.put('/admin/beers', function (req, res) {
+  var beerid = req.body.id;
+  var beername = req.body.name;
+  var beerbrew = req.body.brewery;
+  var beeribu = req.body.ibu;
+  var beerabv = req.body.abv;
+  var beerlimited = req.body.limited_release;
+  var beerdesc = req.body.description;
+  var beerrbid = req.body.rate_beer_id;
+
+  var sql = "SELECT * from beers WHERE id = ? LIMIT 1";
+  var inserts = [beerid];
+  sql = mysql.format(sql,inserts);
+
+  connection.query(sql, function(err, result) {
+	if (result.length == 0) {
+		res.sendStatus(404);
+	} else {
+		var sqladd = "UPDATE beers SET name = ?, brewery = ?, ibu = ?, abv = ?, limited_release = ?, description = ?, rate_beer_id = ? WHERE id = ?";
+		var insadd = [beername, beerbrew, beeribu, beerabv, beerlimited, beerdesc, beerrbid, beerid];
+		sqladd = mysql.format(sqladd, insadd);
+
+		connection.query(sqladd, function(err, result) {
+			res.sendStatus(200);
+		});
+	}
+  });
+});
+
 app.post('/admin/statuses', function (req, res) {
   res.sendStatus(200);
 });
