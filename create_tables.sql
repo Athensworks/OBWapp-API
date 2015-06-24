@@ -23,7 +23,6 @@ device_guid varchar(255),
 beer_id int unsigned,
 age tinyint unsigned,
 like_type tinyint unsigned,
-like_status bool,
 primary key(id)
 );
 
