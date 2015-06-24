@@ -4,7 +4,12 @@ var bwcopyright = "Copyright (c) 2015 Athensworks";
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var morgan = require('morgan');
+
 var app = express();
+var accessLogStream = fs.createWriteStream('/tmp/bwapp-access.log',{flags: 'a'});
+
 var db_test = {
 	host : 'localhost',
 	user : 'username1234',
@@ -36,6 +41,7 @@ function dbMgr() {
 
 dbMgr();
 
+app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
 
