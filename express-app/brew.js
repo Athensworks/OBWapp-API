@@ -277,6 +277,32 @@ app.post('/admin/establishments', function (req, res) {
   });
 });
 
+app.put('/admin/establishments', function (req, res) {
+  var estid   = req.body.id;
+  var estname = req.body.name;
+  var estaddr = req.body.address;
+  var estlon  = req.body.lon;
+  var estlat  = req.body.lat;
+
+  var sql = "SELECT * from establishments where id = ? LIMIT 1";
+  var inserts = [estid];
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+    if (result.length == 0) {
+	res.sendStatus(404);
+    } else {
+	var sqladd = "UPDATE establishments SET name = '?', lat = ?, lon = ?, address = '?' WHERE id = ?";
+	var insadd = [estname, estlat, estlon, estaddr, estid];
+	sqladd = mysql.format(sqladd, insadd);
+
+	connection.query(sqladd, function(err, result) {
+		res.sendStatus(200);
+	});
+    }
+  });
+});
+
 app.post('/admin/beer', function (req, res) {
   res.sendStatus(200);
 });
