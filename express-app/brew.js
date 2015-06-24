@@ -168,12 +168,12 @@ app.put('/report', function (req, res) {
 		    connection.query(sqlrep, function(err, result) {
 			res.sendStatus(200);
 		    });
-        	  });
+        	  })
 		});
       	    } else {
 	       res.sendStatus(404);
       	    }
-          });
+          })
         });
      }
     });
