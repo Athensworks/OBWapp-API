@@ -292,7 +292,7 @@ app.put('/admin/establishments', function (req, res) {
     if (result.length == 0) {
 	res.sendStatus(404);
     } else {
-	var sqladd = "UPDATE establishments SET name = '?', lat = ?, lon = ?, address = '?' WHERE id = ?";
+	var sqladd = "UPDATE establishments SET name = ?, lat = ?, lon = ?, address = ? WHERE id = ?";
 	var insadd = [estname, estlat, estlon, estaddr, estid];
 	sqladd = mysql.format(sqladd, insadd);
 
