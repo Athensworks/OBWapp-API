@@ -322,7 +322,31 @@ app.delete('/admin/establishments', function (req, res) {
 });
 
 app.post('/admin/beer', function (req, res) {
-  res.sendStatus(200);
+  var beername = req.body.name;
+  var beerbrew = req.body.brewery;
+  var beeribu = req.body.ibu;
+  var beerabv = req.body.abv;
+  var beerlimited = req.body.limited_release;
+  var beerdesc = req.body.description;
+  var beerrbid = req.body.rate_beer_id;
+
+  var sql = "SELECT * from beers WHERE name = ? AND brewery = ? LIMIT 1";
+  var inserts = [beername, beerbrew];
+  sql = mysql.format(sql,inserts);
+
+  connection.query(sql, function(err, result) {
+	if (result.length == 1) {
+		res.sendStatus(403);
+	} else {
+		var sqladd = "INSERT into beers (name, brewery, ibu, abv, limited_release, description, rate_beer_id) VALUES (?,?,?,?,?,?,?)";
+		var insadd = [beername, beerbrew, beeribu, beerabv. beerlimited, beerdesc, beerrbid];
+		sqladd = mysql.format(sqladd, insadd);
+
+		connection.query(sqladd, function(err, result) {
+			res.sendStatus(200);
+		});
+	}
+  });
 });
 
 app.post('/admin/statuses', function (req, res) {
