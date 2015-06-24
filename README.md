@@ -91,7 +91,7 @@ Data:
 {
   "lat": "Y",
   "lon": "X",
-  "guid": "GUID",
+  "device_guid": "GUID",
   "age":  "AGE"
 }
 ```
@@ -190,6 +190,18 @@ Response:
   "beer_id": 2,
   "count": 192,
   "like_type": "favorite"
+}
+```
+
+## `POST /report`
+*POST /report
+
+Data:
+```json
+{
+  "beer_id": 123,
+  "establishment_id": 345,
+  "device_guid": "6b981317-1c2d-4219-ad79-7235013ad597"
 }
 ```
 
