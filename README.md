@@ -1,5 +1,24 @@
 # OBWapp-API
 
+##Testing
+-----------
+
+To test the API you can use curl, here is the syntax:
+
+ curl -H "Content-Type: application/json" -X *METHOD* -d '{ *JSON DATA* }' http://*ip*:3000/*api/path/*
+
+Where METHOD can be:
+
+ * POST
+ * PUT
+ * DELETE
+ * GET
+
+Example:
+
+ curl -H "Content-Type: application/json" -X DELETE -d '{"establishment_id": "1", "beer_id": "1"}' http://10.80.90.100:3000/admin/statuses
+
+
 Data Models
 
 Establishments
