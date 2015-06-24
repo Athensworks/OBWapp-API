@@ -194,7 +194,7 @@ Response:
 ```
 
 ## `POST /report`
-*POST /report
+*POST /report*
 
 Data:
 ```json
