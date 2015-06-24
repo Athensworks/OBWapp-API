@@ -144,7 +144,11 @@ app.put('/report', function (req, res) {
   var inscheck = [device_guid, establishment_id, beer_id];
   sqlcheck = mysql.format(sqlcheck, inscheck);
 
-    connection.query(sqlcheck, function(err, result) {
+  // note: Deliberately not using transactions here. The nested SQL queries seem to cause problems.
+  //       With transactions in use, not all of the queries are executed until the next request.
+  //       Too lazy to debug, so just removed transactions :)
+
+  connection.query(sqlcheck, function(err, result) {
      if (result.length == 1) {
         res.sendStatus(403);
      } else {
@@ -152,26 +156,26 @@ app.put('/report', function (req, res) {
   	var inserts = [establishment_id, beer_id];
   	sql = mysql.format(sql, inserts);
 
-    	  connection.query(sql, function(err, result) {
+    	connection.query(sql, function(err, result) {
       	    if (result.length == 1) {
           	var reportcount = result[0].reported_out_count + 1;
 		var sqlupdate = "UPDATE statuses SET status = 4, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
 		var insupdate = [reportcount, establishment_id, beer_id];
 		sqlupdate = mysql.format(sqlupdate, insupdate);
-        	  connection.query(sqlupdate, function(err, result) {
+        	connection.query(sqlupdate, function(err, result) {
 		    var sqlrep = "INSERT into reportstate values (?,?,?,NOW())";
 		    var insrep = [device_guid, establishment_id, beer_id];
 		    sqlrep = mysql.format(sqlrep, insrep);
 		    connection.query(sqlrep, function(err, result) {
 			res.sendStatus(200);
 		    });
-        	  });
+        	});
       	    } else {
 	       res.sendStatus(404);
       	    }
-          });
+        });
      }
-    });
+  });
 });
 
 app.post('/taste', function (req, res) {
