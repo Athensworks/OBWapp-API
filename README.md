@@ -193,8 +193,8 @@ Response:
 }
 ```
 
-## `POST /report`
-*POST /report*
+## `PUT /report`
+*PUT /report*
 
 Data:
 ```json
