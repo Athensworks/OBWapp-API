@@ -452,3 +452,52 @@ app.post('/admin/statuses', function (req, res) {
 	}
   });
 });
+
+app.put('/admin/statuses', function (req, res) {
+  var est_id = req.body.establishment_id;
+  var beer_id = req.body.beer_id;
+  var status = req.body.status;
+
+  var sql = "SELECT * from statuses WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
+  var inserts = [est_id, beer_id];
+
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+	if (result.length == 0) {
+		res.sendStatus(404);
+	} else {
+		var numstatus;
+		switch(status) {
+			case "empty-reported":
+				numstatus = 4;
+				break;
+
+			case "empty":
+				numstatus = 3;
+				break;
+
+			case "tapped":
+				numstatus = 2;
+				break;
+
+			case "untapped":
+				numstatus = 1;
+				break;
+
+			default:
+			case "unknown":
+				numstatus = 0;
+				break;
+		}
+
+		var sqladd = "UPDATE statuses SET status = ?, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
+		var insadd = [numstatus, est_id, beer_id];
+
+		sqladd = mysql.format(sqladd, insadd);
+		connection.query(sqladd, function(err, result) {
+			res.sendStatus(200);
+		});
+	}
+  });
+});
