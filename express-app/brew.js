@@ -503,7 +503,7 @@ app.put('/admin/statuses', function (req, res) {
 				break;
 		}
 
-		var sqladd = "UPDATE statuses SET status = ?, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
+		var sqladd = "UPDATE statuses SET status = ?, reported_out_count = 0, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
 		var insadd = [numstatus, est_id, beer_id];
 
 		sqladd = mysql.format(sqladd, insadd);
