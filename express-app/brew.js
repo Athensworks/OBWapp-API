@@ -251,3 +251,36 @@ var server = app.listen(3000, function () {
   console.log('Brew Week app listening at http://%s:%s', host, port);
 
 });
+
+app.post('/admin/establishments', function (req, res) {
+  var estname = req.body.name;
+  var estaddr = req.body.address;
+  var estlon  = req.body.lon;
+  var estlat  = req.body.lat;
+
+  var sql = "SELECT * from establishments where name = ? LIMIT 1";
+  var inserts = [estname];
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+    if (result.length == 1) {
+	res.sendStatus(403);
+    } else {
+	var sqladd = "INSERT into establishments (name, lat, lon, address) VALUES (?,?,?,?);
+	var insadd = [estname, estlat, estlon, estaddr];
+	sqladd = mysql.format(sqladd, insadd);
+
+	connection.query(sqladd, function(err, result) {
+		res.sendStatus(200);
+	});
+    }
+  });
+});
+
+app.post('/admin/beer', function (req, res) {
+  res.sendStatus(200);
+});
+
+app.post('/admin/statuses', function (req, res) {
+  res.sendStatus(200);
+});
