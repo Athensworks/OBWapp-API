@@ -501,3 +501,23 @@ app.put('/admin/statuses', function (req, res) {
 	}
   });
 });
+
+app.delete('/admin/statuses', function (req, res) {
+  var est_id = req.body.establishment_id;
+  var beer_id = req.body.beer_id;
+
+  var sql = "DELETE FROM statuses WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
+  var inserts = [est_id, beer_id];
+
+  sql = mysql.format(sql, inserts);
+
+  connection.query(sql, function(err, result) {
+	if (result.affectedRows == 1) {
+		res.sendStatus(200);
+	} else {
+		res.sendStatus(404);
+	}
+  });
+});
+
+
