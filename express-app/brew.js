@@ -138,11 +138,21 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   });
 });
 
+app.put('/establishments/:establishment_id/beer/:beer_id', function (req, res) {
+  var device_guid = req.body.device_guid;
+
+  beer_reporter(beer_id, establishment_id, device_guid);
+});
+
 app.put('/report', function (req, res) {
   var beer_id = req.body.beer_id;
   var establishment_id = req.body.establishment_id;
   var device_guid = req.body.device_guid;
 
+  beer_reporter(beer_id, establishment_id, device_guid);
+});
+
+var beer_reporter = function (beer_id, establishment_id, device_guid) {
   var sqlcheck = "SELECT * from reportstate WHERE device_guid = ? and establishment_id = ? and beer_id = ? LIMIT 1";
   var inscheck = [device_guid, establishment_id, beer_id];
   sqlcheck = mysql.format(sqlcheck, inscheck);

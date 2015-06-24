@@ -19,7 +19,7 @@ Example:
  curl -H "Content-Type: application/json" -X DELETE -d '{"establishment_id": "1", "beer_id": "1"}' http://10.80.90.100:3000/admin/statuses
 
 
-Data Models
+##Data Models
 
 Establishments
 -------------
