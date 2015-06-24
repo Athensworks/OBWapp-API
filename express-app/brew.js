@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 var app = express();
 var db_test = {
 	host : 'localhost',
-	user : 'username1234',
-	password : 'password1234',
-	database : 'database1234' };
+	user : 'drunk',
+	password : 'bartender12345',
+	database : 'testbrew' };
 
 var connection;
 var beer_status_names = ["unknown", "untapped", "tapped", "empty", "empty-reported"];
@@ -138,8 +138,12 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   });
 });
 
-app.put('/establishments/:establishment_id/:beer_id', function (req, res) {
+router.put('/establishments/:est_id/beer/:beer_id', function (req, res) {
   var device_guid = req.body.device_guid;
+  var establishment_id = req.params.est_id;
+  var beer_id = req.params.beer_id;
+
+  console.log('%s %s %s',device_guid, establishment_id, beer_id);
 
   beer_reporter(beer_id, establishment_id, device_guid, req, res);
 });
@@ -529,5 +533,3 @@ app.delete('/admin/statuses', function (req, res) {
 	}
   });
 });
-
-
