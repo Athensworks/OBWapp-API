@@ -6,6 +6,13 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var morgan = require('morgan');
+var passport = require('passport');
+var util = require('util');
+var BearerStrategy = require('passport-http-bearer').Strategy;
+
+var users = [
+  { id: 1, username: 'test', token: '123456789', email: 'example@athensworks.com' }
+];
 
 var app = express();
 var accessLogStream = fs.createWriteStream('/tmp/bwapp-access.log',{flags: 'a'});
@@ -41,6 +48,31 @@ function dbMgr() {
 
 dbMgr();
 
+function findByToken(token, fn) {
+ for (var i = 0, len = users.length; i < len; i++) {
+  var user = users[i];
+  if (user.token === token) {
+   return fn(null,user);
+  }
+ }
+ return fn(null, null);
+}
+
+passport.use(new BearerStrategy({
+ },
+ function(token, done) {
+   process.nextTick(function () {
+    findByToken(token, function(err, user) {
+     if (err) { return done(err); }
+     if (!user) { return done(null, false); }
+     return done(null, user);
+    })
+   });
+ }
+));
+
+
+app.use(passport.initialize());
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -575,4 +607,9 @@ app.delete('/admin/statuses', function (req, res) {
 		res.sendStatus(404);
 	}
   });
+});
+
+app.get('/auth/', passport.authenticate('bearer', { session: false }),
+ function(req, res) {
+  res.json({ username: req.user.username, email: req.user.email });
 });
