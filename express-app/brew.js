@@ -1,6 +1,9 @@
+// Application Specific Information
 var bwappname = "Brew Week App API";
 var bwversion = "1.0.0";
 var bwcopyright = "Copyright (c) 2015 Athensworks";
+
+// Load dependencies
 var express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
@@ -10,9 +13,15 @@ var passport = require('passport');
 var util = require('util');
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
+// Create express
 var app = express();
+
+// Creates a stream for the access log to /tmp
+// todo: Add some logrotate code
 var accessLogStream = fs.createWriteStream('/tmp/bwapp-access.log',{flags: 'a'});
 
+
+// These are db credentials, do not change these as they are matched and replaced with the real ones on deployment
 var db_test = {
 	host : 'localhost',
 	user : 'username1234',
@@ -21,6 +30,8 @@ var db_test = {
 
 var connection;
 var beer_status_names = ["unknown", "untapped", "tapped", "empty", "empty-reported"];
+
+// Database Manager - handle connection timeout, might need more here, but so far so good
 
 function dbMgr() {
   connection = mysql.createConnection(db_test);
@@ -43,6 +54,10 @@ function dbMgr() {
 }
 
 dbMgr();
+
+// This function searches for the RFC 6750 token in the usertoken table
+// It is used to determine if an incoming request for a secured API endpoint has permission
+// This is very basic, it works, its reasonably robust, don't use it for anything really important!
 
 function findByToken(token, fn) {
  var tokensql = "SELECT * FROM usertoken WHERE token = ? LIMIT 1";
@@ -73,11 +88,14 @@ passport.use(new BearerStrategy({
 ));
 
 
+
+// Configure Express to use middleware
 app.use(passport.initialize());
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// This is the / endpoint - it should never get hit as nginx sits in front of this app
 app.get('/', function (req, res) {
   res.send('Brew Week App request from ' + req.ip);
 });
@@ -105,6 +123,10 @@ app.get('/establishments', function (req, res) {
         var rowcount = 0;
         var bscnt = 0;
         var keeploop = 1;
+
+	// The code below builds a new object called prow from the database results
+	// It also performs the numeric to string conversion of the statuses
+	// The resulting JSON structure is formatted to match that listed in the README.md spec
 
         while (rows[rowcount]) {
 		keeploop = 1;
@@ -177,6 +199,8 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   });
 });
 
+// This provides a more RESTful way to do what /report does
+
 app.put('/establishments/:est_id/beer/:beer_id', function (req, res) {
   var device_guid = req.body.device_guid;
   var establishment_id = req.params.est_id;
@@ -192,6 +216,9 @@ app.put('/report', function (req, res) {
 
   beer_reporter(beer_id, establishment_id, device_guid, req, res);
 });
+
+
+// This is a common function for /report and /establishments/<establishment-id>/beer/<beer-id>
 
 var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) {
   var sqlcheck = "SELECT * from reportstate WHERE device_guid = ? and establishment_id = ? and beer_id = ? LIMIT 1";
@@ -231,6 +258,8 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
      }
   });
 };
+
+// The block of code below handles the tastes and favorite statuses (stateless)
 
 app.post('/taste', function (req, res) {
   var like = {
@@ -298,6 +327,8 @@ var countFromRow = function(row) {
   return row["COUNT(*)"];
 }
 
+// This function starts up the server
+
 var server = app.listen(3000, function () {
 
   var host = server.address().address;
@@ -311,6 +342,8 @@ var server = app.listen(3000, function () {
   console.log('');
 
 });
+
+// The code below is the admin API endpoints
 
 app.post('/admin/establishments', passport.authenticate('bearer', { session: false }), function (req, res) {
   var estname = req.body.name;
