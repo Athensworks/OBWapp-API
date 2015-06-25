@@ -10,10 +10,6 @@ var passport = require('passport');
 var util = require('util');
 var BearerStrategy = require('passport-http-bearer').Strategy;
 
-var users = [
-  { id: 1, username: 'test', token: '123456789', email: 'example@athensworks.com' }
-];
-
 var app = express();
 var accessLogStream = fs.createWriteStream('/tmp/bwapp-access.log',{flags: 'a'});
 
@@ -49,13 +45,18 @@ function dbMgr() {
 dbMgr();
 
 function findByToken(token, fn) {
- for (var i = 0, len = users.length; i < len; i++) {
-  var user = users[i];
-  if (user.token === token) {
-   return fn(null,user);
+ var tokensql = "SELECT * FROM usertoken WHERE token = ? LIMIT 1";
+ var instoken = [token];
+ tokensql = mysql.format(tokensql, instoken);
+
+ connection.query(tokensql, function(err, result) {
+  if (result.length == 1) {
+    var user = result[0];
+    return fn(null, user);
+  } else {
+    return fun(null, null);
   }
- }
- return fn(null, null);
+ });
 }
 
 passport.use(new BearerStrategy({
