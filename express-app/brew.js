@@ -54,7 +54,7 @@ function findByToken(token, fn) {
     var user = result[0];
     return fn(null, user);
   } else {
-    return fun(null, null);
+    return fn(null, null);
   }
  });
 }
