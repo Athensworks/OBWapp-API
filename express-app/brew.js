@@ -297,6 +297,7 @@ var likeResponse = function(beer_id, like, res) {
 var countFromRow = function(row) {
   return row["COUNT(*)"];
 }
+
 var server = app.listen(3000, function () {
 
   var host = server.address().address;
@@ -311,7 +312,7 @@ var server = app.listen(3000, function () {
 
 });
 
-app.post('/admin/establishments', function (req, res) {
+app.post('/admin/establishments', passport.authenticate('bearer', { session: false }), function (req, res) {
   var estname = req.body.name;
   var estaddr = req.body.address;
   var estlon  = req.body.lon;
@@ -336,7 +337,7 @@ app.post('/admin/establishments', function (req, res) {
   });
 });
 
-app.put('/admin/establishments', function (req, res) {
+app.put('/admin/establishments', passport.authenticate('bearer', { session: false }), function (req, res) {
   var estid   = req.body.id;
   var estname = req.body.name;
   var estaddr = req.body.address;
@@ -362,7 +363,7 @@ app.put('/admin/establishments', function (req, res) {
   });
 });
 
-app.delete('/admin/establishments', function (req, res) {
+app.delete('/admin/establishments', passport.authenticate('bearer', { session: false }), function (req, res) {
   var estid   = req.body.id;
   var estname = req.body.name;
   var estaddr = req.body.address;
@@ -380,7 +381,7 @@ app.delete('/admin/establishments', function (req, res) {
   });
 });
 
-app.post('/admin/beers', function (req, res) {
+app.post('/admin/beers', passport.authenticate('bearer', { session: false }), function (req, res) {
   var beername = req.body.name;
   var beerbrew = req.body.brewery;
   var beeribu = req.body.ibu;
@@ -408,7 +409,7 @@ app.post('/admin/beers', function (req, res) {
   });
 });
 
-app.put('/admin/beers', function (req, res) {
+app.put('/admin/beers', passport.authenticate('bearer', { session: false }), function (req, res) {
   var beerid = req.body.id;
   var beername = req.body.name;
   var beerbrew = req.body.brewery;
@@ -437,7 +438,7 @@ app.put('/admin/beers', function (req, res) {
   });
 });
 
-app.delete('/admin/beers', function (req, res) {
+app.delete('/admin/beers', passport.authenticate('bearer', { session: false }), function (req, res) {
   var beerid = req.body.id;
   var beername = req.body.name;
   var beerbrew = req.body.brewery;
@@ -455,7 +456,7 @@ app.delete('/admin/beers', function (req, res) {
   });
 });
 
-app.post('/admin/statuses', function (req, res) {
+app.post('/admin/statuses', passport.authenticate('bearer', { session: false }), function (req, res) {
   var est_id = req.body.establishment_id;
   var beer_id = req.body.beer_id;
   var status = req.body.status;
@@ -523,7 +524,7 @@ app.post('/admin/statuses', function (req, res) {
   });
 });
 
-app.put('/admin/statuses', function (req, res) {
+app.put('/admin/statuses', passport.authenticate('bearer', { session: false }), function (req, res) {
   var est_id = req.body.establishment_id;
   var beer_id = req.body.beer_id;
   var status = req.body.status;
@@ -592,7 +593,7 @@ app.put('/admin/statuses', function (req, res) {
   });
 });
 
-app.delete('/admin/statuses', function (req, res) {
+app.delete('/admin/statuses', passport.authenticate('bearer', { session: false }), function (req, res) {
   var est_id = req.body.establishment_id;
   var beer_id = req.body.beer_id;
 

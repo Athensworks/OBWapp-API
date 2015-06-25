@@ -42,3 +42,10 @@ establishment_id int unsigned,
 beer_id int unsigned,
 last_report_update datetime
 );
+
+create table usertoken(
+username varchar(255),
+email varchar(255),
+token varchar(255)
+);
+
