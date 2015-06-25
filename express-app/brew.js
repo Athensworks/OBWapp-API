@@ -610,8 +610,3 @@ app.delete('/admin/statuses', passport.authenticate('bearer', { session: false }
 	}
   });
 });
-
-app.get('/auth/', passport.authenticate('bearer', { session: false }),
- function(req, res) {
-  res.json({ username: req.user.username, email: req.user.email });
-});
