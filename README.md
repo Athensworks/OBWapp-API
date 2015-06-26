@@ -42,6 +42,7 @@ Note status is stored in the db as int so we will return:
 * tapped = 2
 * empty = 3
 * empty reported = 4
+* cancelled = 5
 
 
 Beers
