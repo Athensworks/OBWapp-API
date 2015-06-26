@@ -538,7 +538,7 @@ app.post('/admin/statuses', passport.authenticate('bearer', { session: false }),
 							break;
 					}
 
-					var sqladd = "INSERT into statuses VALUES (?,?,?,0,NOW())";
+					var sqladd = "INSERT into statuses (establishment_id, beer_id, status, reported_out_count, last_out_update) VALUES (?,?,?,0,NOW())";
 					var insadd = [est_id, beer_id, numstatus];
 
 					sqladd = mysql.format(sqladd, insadd);
