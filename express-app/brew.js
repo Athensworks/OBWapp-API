@@ -192,7 +192,7 @@ app.get('/establishment/:estid/beer_statuses', function (req, res) {
   var sql = "SELECT * FROM statuses WHERE statuses.establishment_id = " + req.params.estid + ";";
   connection.query(sql, function (err, rows) {
 	  var beer_statuses = [];
-	  if (typeof rows.length !== 'undefined') {
+	  if (!err) {
 	      for (i = 0; i < rows.length; i++) {
 		      beer_statuses.push({ id: rows[i].beer_id, status: beer_status_names[rows[i].status] });
 	      }
