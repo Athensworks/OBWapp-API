@@ -48,6 +48,7 @@ function dbMgr() {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
       dbMgr();
     } else {
+      console.log('FATAL DB Error: %s', err.code);
       throw err;
     }
  });
@@ -106,7 +107,11 @@ app.get('/beers', function(req, res) {
   var sql = 'select *,(select count(*) from likes where beer_id = beers.id and likes.like_type = 1) as "taste_count",(select count(*) from likes where beer_id = beers.id and likes.like_type = 2) as "favorite_count" from beers;';
 
   connection.query(sql, function(err, rows) {
-    res.json({ beers: rows });
+    if (err) {
+	res.sendStatus(400);
+    } else {
+    	res.json({ beers: rows });
+    }
   });
 
 });
@@ -128,7 +133,10 @@ app.get('/establishments', function (req, res) {
 	// It also performs the numeric to string conversion of the statuses
 	// The resulting JSON structure is formatted to match that listed in the README.md spec
 
-        while (rows[rowcount]) {
+	if (err) {
+	  res.sendStatus(400);
+        } else { 
+          while (rows[rowcount]) {
 		keeploop = 1;
 		bcnt = 0;
                 prow.push({});
@@ -181,9 +189,9 @@ app.get('/establishments', function (req, res) {
                         console.log('ERROR: length is %s, count is %s, beer count is %s',rows.length, rowcount, bscnt);
                         rowcount = rows.length;
                 }
-        }
-
-        res.json({ establishments: prow });
+          }
+          res.json({ establishments: prow });
+	}
   });
 });
 
@@ -234,15 +242,21 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
   //       Too lazy to debug, so just removed transactions :)
 
   connection.query(sqlcheck, function(err, result) {
-     if (result.length == 1) {
-        res.sendStatus(403);
+     if (err) {
+       res.sendStatus(400);
      } else {
+       if (result.length == 1) {
+        res.sendStatus(403);
+       } else {
   	var sql = "SELECT * from statuses WHERE establishment_id = ? and beer_id = ? LIMIT 1";
   	var inserts = [establishment_id, beer_id];
   	sql = mysql.format(sql, inserts);
 
     	connection.query(sql, function(err, result) {
-      	    if (result.length == 1) {
+	    if (err) {
+	      res.sendStatus(400);
+	    } else {
+      	      if (result.length == 1) {
           	var reportcount = result[0].reported_out_count + 1;
 		var sqlupdate = "UPDATE statuses SET status = 4, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
 		var insupdate = [reportcount, establishment_id, beer_id];
@@ -255,10 +269,12 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
 			res.sendStatus(200);
 		    });
         	});
-      	    } else {
-	       res.sendStatus(404);
-      	    }
+      	      } else {
+	         res.sendStatus(404);
+      	      }
+	    }
         });
+       }
      }
   });
 };
@@ -294,15 +310,19 @@ var liker = function(req, res, like) {
 
   connection.beginTransaction(function(err){
     connection.query(sql, function(err, result) {
-      if (result.affectedRows === 0) {
-	var sqlinsert = "INSERT into likes (device_guid, beer_id, age, like_type) VALUES (?,?,?,?)";
-	var insinsert = [device_guid, beer_id, age, like.type_id];
-	sqlinsert = mysql.format(sqlinsert, insinsert);
-        connection.query(sqlinsert, function(err, result) {
-          likeResponse(beer_id, like, res);
-        })
+      if (err) {
+	res.sendStatus(400);
       } else {
-        likeResponse(beer_id, like, res);
+        if (result.affectedRows === 0) {
+	  var sqlinsert = "INSERT into likes (device_guid, beer_id, age, like_type) VALUES (?,?,?,?)";
+	  var insinsert = [device_guid, beer_id, age, like.type_id];
+	  sqlinsert = mysql.format(sqlinsert, insinsert);
+          connection.query(sqlinsert, function(err, result) {
+            likeResponse(beer_id, like, res);
+          })
+        } else {
+          likeResponse(beer_id, like, res);
+        }
       }
     });
   });
