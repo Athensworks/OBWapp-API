@@ -1,172 +1,0 @@
-
-
-  Get Beers
-    ✓ I need some beers (288ms)
-
-  Get Establishments
-    ✓ Who has beer? (156ms)
-    ✓ Who has beer near me? (187ms)
-    ✓ Who has beer near me? - Out of order (188ms)
-    ✓ Who has beer near me? - Incomplete (136ms)
-    ✓ Who has beer near me? - Invalid (132ms)
-    ✓ Hey, do you have any beer left? (131ms)
-
-  Post Tastes
-    ✓ Dude, let me taste your beer (269ms)
-    ✓ Dude, let me taste your beer - Out of  order (212ms)
-    ✓ Dude, let me taste your beer - Incomplete (274ms)
-    ✓ Dude, let me taste your beer - Invalid (181ms)
-
-  Post Favorites
-    ✓ THIS IS MY FAVORITE BEER EVER! (190ms)
-    ✓ THIS IS MY FAVORITE BEER EVER! - Out of order (295ms)
-    ✓ THIS IS MY FAVORITE BEER EVER! - Incomplete (191ms)
-    ✓ THIS IS MY FAVORITE BEER EVER! - Invalid (198ms)
-
-  Put Report
-    1) Someone needs to know that this beer is out
-
-
-  15 passing (3s)
-  1 failing
-
-  1) Put Report Someone needs to know that this beer is out:
-     AssertionError: expected status code 403 to equal 200
-  
-
-
-
-
-
-  Admin Beers
-    1) Post Beer
-    2) Post Beer - Out of order
-    3) Post Beer - Incomplete
-    4) Post Beer - Invalid
-    5) Put Beer
-    6) Put Beer - Out of order
-    7) Put Beer - Incomplete
-    8) Put Beer - Invalid
-
-  Admin Establishments
-    9) Post Establishments
-    10) Post Establishments - Out of order
-    11) Post Establishments - Incomplete
-    12) Post Establishments - Invalid
-    13) Put Establishments
-    14) Put Establishments - Out of order
-    15) Put Establishments - Incomplete
-    16) Put Establishments - Invalid
-
-  Admin Status
-    17) Post Status
-    18) Post Status - Out of order
-    19) Post Status - Incomplete
-    20) Post Status - Invalid
-    21) Put Status
-    22) Put Status - Out of order
-    23) Put Status - Incomplete
-    24) Put Status - Invalid
-
-
-  0 passing (7s)
-  24 failing
-
-  1) Admin Beers Post Beer:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  2) Admin Beers Post Beer - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  3) Admin Beers Post Beer - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  4) Admin Beers Post Beer - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  5) Admin Beers Put Beer:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  6) Admin Beers Put Beer - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  7) Admin Beers Put Beer - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  8) Admin Beers Put Beer - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  9) Admin Establishments Post Establishments:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  10) Admin Establishments Post Establishments - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  11) Admin Establishments Post Establishments - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  12) Admin Establishments Post Establishments - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  13) Admin Establishments Put Establishments:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  14) Admin Establishments Put Establishments - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  15) Admin Establishments Put Establishments - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  16) Admin Establishments Put Establishments - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  17) Admin Status Post Status:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  18) Admin Status Post Status - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  19) Admin Status Post Status - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  20) Admin Status Post Status - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  21) Admin Status Put Status:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  22) Admin Status Put Status - Out of order:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  23) Admin Status Put Status - Incomplete:
-     AssertionError: expected status code 401 to equal 200
-  
-
-  24) Admin Status Put Status - Invalid:
-     AssertionError: expected status code 401 to equal 200
-  
-
-
-
