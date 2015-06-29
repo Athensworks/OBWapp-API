@@ -75,7 +75,8 @@ Beers
         "limited_release": false,
         "name": "Firefly Amber",
         "rate_beer_id": 111588,
-        "taste_count": 100
+        "taste_count": 100,
+        "description": "Super awesome description"
     },
     {
         "abv": 5.0,
@@ -86,7 +87,8 @@ Beers
         "limited_release": false,
         "name": "Firefly Amber",
         "rate_beer_id": 111588,
-        "taste_count": 126
+        "taste_count": 126,
+        "description": "Even better description"
     },
     {
         "abv": 4.7,
@@ -97,7 +99,8 @@ Beers
         "limited_release": true,
         "name": "Razz Wheat",
         "rate_beer_id": 111586,
-        "taste_count": 12
+        "taste_count": 12,
+        "description": "The best description"
     }]
 }
 ```
