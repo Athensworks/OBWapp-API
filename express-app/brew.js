@@ -176,7 +176,7 @@ app.get('/establishments', function (req, res) {
 			bcnt++;
                     }
                 }
-                prow[pcnt].id = rows[rowcount].id;
+                prow[pcnt].id = rows[rowcount].establishment_id;
                 prow[pcnt].lat = rows[rowcount].lat;
                 prow[pcnt].lon = rows[rowcount].lon;
                 prow[pcnt].name = rows[rowcount].name;
