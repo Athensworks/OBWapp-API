@@ -246,7 +246,18 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
        res.sendStatus(400);
      } else {
        if (result.length == 1) {
-        res.sendStatus(403);
+	var rep_count = result[0].report_count + 1;
+	var sqlcount = "UPDATE reportstate SET report_count = ? WHERE device_guid = ? and establishment_id = ? and beer_id = ?";
+	var inscount = [rep_count, device_guid, establishment_id, beer_id];
+	sqlcount = mysql.format(sqlcount, inscount);
+
+	connection.query(sql, function(err, result) {
+	  if (err) {
+		res.sendStatus(400);
+	  } else {
+		res.sendStatus(200);
+	  }
+	});
        } else {
   	var sql = "SELECT * from statuses WHERE establishment_id = ? and beer_id = ? LIMIT 1";
   	var inserts = [establishment_id, beer_id];

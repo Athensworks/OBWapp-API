@@ -42,6 +42,7 @@ create table reportstate(
 device_guid varchar(255),
 establishment_id int unsigned,
 beer_id int unsigned,
+report_count int unsigned,
 last_report_update datetime
 );
 
