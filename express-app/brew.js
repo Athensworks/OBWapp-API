@@ -273,11 +273,11 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
 		if (countdown <= 2) {
 			var reportcount = result[0].reported_out_count + 1;
 			var sqlupdate = "UPDATE statuses SET report_countdown = ?, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
-			var insupdate = [report_countdown, reportcount, establishment_id, beer_id];
+			var insupdate = [countdown, reportcount, establishment_id, beer_id];
 		} else {
 			var reportcount = result[0].reported_out_count + 1;
 			var sqlupdate = "UPDATE statuses SET status = 4, report_countdown = ?, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
-			var insupdate = [report_countdown, reportcount, establishment_id, beer_id];
+			var insupdate = [countdown, reportcount, establishment_id, beer_id];
 		}
 		sqlupdate = mysql.format(sqlupdate, insupdate);
         	connection.query(sqlupdate, function(err, result) {
