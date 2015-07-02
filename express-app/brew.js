@@ -268,13 +268,22 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
 	      res.sendStatus(400);
 	    } else {
       	      if (result.length == 1) {
-          	var reportcount = result[0].reported_out_count + 1;
-		var sqlupdate = "UPDATE statuses SET status = 4, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
-		var insupdate = [reportcount, establishment_id, beer_id];
+		var countdown = result[0].report_countdown + 1;
+
+		if (countdown <= 2) {
+			var reportcount = result[0].reported_out_count + 1;
+			var sqlupdate = "UPDATE statuses SET report_countdown = ?, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
+			var insupdate = [report_countdown, reportcount, establishment_id, beer_id];
+		} else {
+			var reportcount = result[0].reported_out_count + 1;
+			var sqlupdate = "UPDATE statuses SET status = 4, report_countdown = ?, reported_out_count = ? WHERE establishment_id = ? AND beer_id = ? LIMIT 1";
+			var insupdate = [report_countdown, reportcount, establishment_id, beer_id];
+		}
 		sqlupdate = mysql.format(sqlupdate, insupdate);
         	connection.query(sqlupdate, function(err, result) {
-		    var sqlrep = "INSERT into reportstate values (?,?,?,NOW())";
-		    var insrep = [device_guid, establishment_id, beer_id];
+		    var report_count = 1;
+		    var sqlrep = "INSERT into reportstate values (?,?,?,?,NOW())";
+		    var insrep = [device_guid, establishment_id, beer_id, report_count];
 		    sqlrep = mysql.format(sqlrep, insrep);
 		    connection.query(sqlrep, function(err, result) {
 			res.sendStatus(200);
@@ -573,7 +582,7 @@ app.post('/admin/statuses', passport.authenticate('bearer', { session: false }),
 							break;
 					}
 
-					var sqladd = "INSERT into statuses (establishment_id, beer_id, status, reported_out_count, last_out_update) VALUES (?,?,?,0,NOW())";
+					var sqladd = "INSERT into statuses (establishment_id, beer_id, status, report_countdown, reported_out_count, last_out_update) VALUES (?,?,?,0,0,NOW())";
 					var insadd = [est_id, beer_id, numstatus];
 
 					sqladd = mysql.format(sqladd, insadd);
@@ -642,8 +651,10 @@ app.put('/admin/statuses', passport.authenticate('bearer', { session: false }), 
 							break;
 					}
 
-					var sqladd = "UPDATE statuses SET status = ?, reported_out_count = 0, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
+					var sqladd = "UPDATE statuses SET status = ?, report_countdown = 0, reported_out_count = 0, last_out_update = NOW() WHERE establishment_id = ? AND beer_id = ?";
 					var insadd = [numstatus, est_id, beer_id];
+
+					// FIXME: need to update reportstate here and clear report_count
 
 					sqladd = mysql.format(sqladd, insadd);
 					connection.query(sqladd, function(err, result) {

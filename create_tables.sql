@@ -33,6 +33,7 @@ id int unsigned not null auto_increment,
 establishment_id int unsigned,
 beer_id int unsigned,
 status tinyint unsigned,
+report_countdown int unsigned,
 reported_out_count int unsigned,
 last_out_update datetime,
 primary key(id)
