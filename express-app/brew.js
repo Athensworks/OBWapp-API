@@ -335,6 +335,18 @@ var liker = function(req, res, like) {
   var beer_id     = req.body.beer_id;
   var device_guid = req.body.device_guid;
   var age         = req.body.age;
+  var lon         = req.body.lon;                                                                                                                                               
+  var lat         = req.body.lat;                                                                                                                                               
+                                                                                                                                                                                
+  var ftsql = "INSERT into futuredata (lat, lon, device_guid, beer_id, age) VALUES (?,?,?,?,?)";                                                                                
+  var ftins = [lat, lon, device_guid, beer_id, age];                                                                                                                            
+  ftsql = mysql.format(ftsql, ftins);                                                                                                                                           
+                                                                                                                                                                                
+  connection.query(ftsql, function(err, result) {                                                                                                                               
+    if (err) {                                                                                                                                                                  
+        console.log('DB error - new code');                                                                                                                                     
+    }                                                                                                                                                                           
+  });                                          
 
   var sql = "DELETE FROM likes WHERE device_guid = ? AND beer_id = ? AND like_type = ?";
   var inserts = [device_guid, beer_id, like.type_id];

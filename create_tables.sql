@@ -53,3 +53,13 @@ email varchar(255),
 token varchar(255)
 );
 
+create table futuredata(
+id int unsigned not null auto_increment,
+lat float,
+lon float,
+device_guid varchar(255),
+beer_id int unsigned,
+age int unsigned,
+primary key(id)
+);
+
