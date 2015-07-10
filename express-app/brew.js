@@ -301,6 +301,18 @@ var beer_reporter = function (beer_id, establishment_id, device_guid, req, res) 
 
 // The block of code below handles the tastes and favorite statuses (stateless)
 
+app.get('/taste', function (req, res) {
+        res.sendStatus(404);
+});
+
+app.get('/favorite', function (req, res) {
+        res.sendStatus(404);
+});
+
+app.get('/report', function (req, res) {
+        res.sendStatus(404);
+});
+
 app.post('/taste', function (req, res) {
   var like = {
     type_id: 1,
