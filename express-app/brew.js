@@ -94,7 +94,7 @@ passport.use(new BearerStrategy({
 app.use(passport.initialize());
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
-
+app.enable('trust proxy');
 
 // This is the / endpoint - it should never get hit as nginx sits in front of this app
 app.get('/', function (req, res) {
