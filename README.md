@@ -18,50 +18,6 @@ Example:
 
  curl -H "Content-Type: application/json" -X DELETE -d '{"establishment_id": "1", "beer_id": "1"}' http://10.80.90.100:3000/admin/statuses
 
-
-##Data Models
-
-Establishments
--------------
-* id ID
-* name STRING
-* lat  FLOAT
-* lon  FLOAT
-* address STRING
-* beers ARRAY
-  * beer_id ID
-  * status ('tapped', 'untapped', 'empty', 'empty-reported') STRING
-  * reported_out_count INTEGER
-  * last_out_update DATETIME
-
-
-Note status is stored in the db as int so we will return:
-
-* unknown = 0
-* untapped = 1
-* tapped = 2
-* empty = 3
-* empty reported = 4
-* cancelled = 5
-
-
-Beers
------
-
-* id ID
-* name STRING
-* brewery STRING
-* rate_beer_id STRING
-* ibu INTEGER
-* abv FLOAT
-* limited_release BOOLEAN
-* favorites ARRAY
-  * guid STRING
-  * age INTEGER
-* taste ARRAY
-  * guid STRING
-  * age INTEGER
-
 ## `GET /beers`
 *GET /beers*
 ```json
@@ -150,7 +106,7 @@ Response:
 ```
 ## `GET /establishment/:establishment_id/beer_statuses`
 
-*GET /establishment/:establishment_id/beer_statuses* 
+*GET /establishment/:establishment_id/beer_statuses*
 ```json
 { "beer_statuses": [
     {
@@ -181,6 +137,7 @@ Data:
   "age":  35,
   "lat": "Y",
   "lon": "X",
+  "state": true
 }
 ```
 
@@ -189,7 +146,7 @@ Response:
 {
   "beer_id": 123,
   "count": 52,
-  "like_type": "taste"
+  "like_type": 1
 }
 ```
 
@@ -204,6 +161,7 @@ Data:
   "age":  43,
   "lat": "Y",
   "lon": "X",
+  "state": true
 }
 ```
 
@@ -212,7 +170,7 @@ Response:
 {
   "beer_id": 2,
   "count": 192,
-  "like_type": "favorite"
+  "like_type": 2
 }
 ```
 
