@@ -119,6 +119,18 @@ Response:
 ]}
 ```
 
+## `PUT /establishment/{establishment_id}/beer/{beer_id}`
+*PUT /report*
+
+Data (as JSON encoded reqest body):
+```json
+{
+  "status": "empty-reported",
+  "device_guid": "6b981317-1c2d-4219-ad79-7235013ad597"
+}
+```
+
+
 
 ## `POST  /taste`
 
@@ -166,17 +178,5 @@ Response:
   "beer_id": 2,
   "count": 192,
   "like_type": 2
-}
-```
-
-## `PUT /report`
-*PUT /report*
-
-Data (as JSON encoded reqest body):
-```json
-{
-  "beer_id": 123,
-  "establishment_id": 345,
-  "device_guid": "6b981317-1c2d-4219-ad79-7235013ad597"
 }
 ```
