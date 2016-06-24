@@ -60,16 +60,14 @@ Example:
 
 ## `GET /establishments`
 *GET /establishments*
-*GET /establishments?parameters=JSON_STRING*
+*GET /establishments?lat=Y&lon=X&device_guid=ZZZZ&age=NN*
 
-Data:
-```json
-{
-  "lat": "Y",
-  "lon": "X",
-  "device_guid": "GUID",
-  "age":  "AGE"
-}
+Parameters:
+```
+lat: Y
+lon: X
+device_guid: GUID
+age: NN
 ```
 
 Response:
