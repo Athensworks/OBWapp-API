@@ -119,8 +119,8 @@ Response:
 ]}
 ```
 
-## `PUT /establishment/{establishment_id}/beer/{beer_id}`
-*PUT /report*
+## `PUT /establishment/:establishment_id/beer/:beer_id`
+*PUT /establishment/:establishment_id/beer/:beer_id*
 
 Data (as JSON encoded reqest body):
 ```json
