@@ -5,13 +5,13 @@
 
 To test the API you can use curl, here is the syntax:
 
- curl -H "Content-Type: application/json" -X *METHOD* -d '{ *JSON DATA* }' http://*ip*:3000/*api/path/*
+ curl -H "Content-Type: application/json" -X *METHOD* -d '{ *JSON DATA* }' http://url/*api/path/*
 
 Where METHOD can be:
 
  * POST
  * PUT
- * DELETEd
+ * DELETE
  * GET
 
 Example:
