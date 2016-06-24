@@ -30,7 +30,6 @@ Example:
         "id": 1,
         "limited_release": false,
         "name": "Firefly Amber",
-        "rate_beer_id": 111588,
         "taste_count": 100,
         "description": "Super awesome description"
     },
@@ -42,7 +41,6 @@ Example:
         "id": 2,
         "limited_release": false,
         "name": "Firefly Amber",
-        "rate_beer_id": 111588,
         "taste_count": 126,
         "description": "Even better description"
     },
@@ -54,7 +52,6 @@ Example:
         "id": 3,
         "limited_release": true,
         "name": "Razz Wheat",
-        "rate_beer_id": 111586,
         "taste_count": 12,
         "description": "The best description"
     }]
@@ -200,165 +197,9 @@ To use the /admin API endpoints, you must create at least one user in the userto
 
 Example:
 
-MariaDB [brewapp] >
- INSERT into usertoken VALUES ('timmyadmin','timmy@athensworks.com','30085658-71d8-4f69-ae6f-33764cec544b');
-
-The format for this is:
-
- INSERT into usertoken VALUES ('*username*','*emailaddress*','*super-secret-bearer-token*';
-
-
 Then when issuing your requests to /admin you would append *?access_token=super-secret-bearer-token*
 
 So in our example:
 
  curl -H "Content-Type: application/json" -X PUT -d '{"establishment_id": "6", "beer_id": "1", "status": "tapped"}' \
   http://10.80.90.100:3000/admin/statuses/?access_token=30085658-71d8-4f69-ae6f-33764cec544b
-
-
-## `POST /admin/establishments`
-*POST /admin/establishments*
-
-Data:
-```json
-{
-  "name": "Some Random Pub",
-  "address": "44 Court Street, Athens, OH 45701",
-  "lon": "123.4567",
-  "lat": "456.7890"
-}
-
-```
-
-## `PUT /admin/establishments`
-*PUT /admin/establishments*
-
-Data:
-```json
-{
-  "id": "1",
-  "name": "Some Random Pub",
-  "address": "44 Court Street, Athens, OH 45701",
-  "lon": "123.4567",
-  "lat": "456.7890"
-}  
-
-```
-
-## `DELETE /admin/establishments`
-*DELETE /admin/establishments*
-
-Data:
-```json
-{
-  "id": "1",
-  "name": "Some Random Pub",
-  "address": "44 Court Street, Athens, OH 45701"
-}
-
-```
-
-## `POST /admin/beers`
-*POST /admin/beers*
-
-Data:
-```json
-{
-  "name": "Ricky IPA",
-  "brewery": "Ball n Chain Buds",
-  "ibu": "40",
-  "abv": "5.6",
-  "limited_release": "1",
-  "description": "An IPA that you can't get drunk on",
-  "rate_beer_id": "5551234"
-}
-```
-
-## `PUT /admin/beers`
-*PUT /admin/beers*
-
-Data:
-```json
-{
-  "id": "1",
-  "name": "Ricky IPA",
-  "brewery": "Ball n Chain Buds",
-  "ibu": "40",
-  "abv": "5.6",
-  "limited_release": "1",
-  "description": "An IPA that you can't get drunk on",
-  "rate_beer_id": "5551234"
-}
-```
-
-## `DELETE /admin/beers`
-*DELETE /admin/beers*
-
-Data:
-```json
-{
-  "id": "1",
-  "name": "Ricky IPA",
-  "brewery": "Ball n Chain Buds"
-}
-```
-
-## `POST /admin/statuses`
-*POST /admin/statuses*
-
-Data:
-```json
-{
-  "establishment_id": "1",
-  "beer_id": "1",
-  "status": "tapped"
-}
-```
-
-## `PUT /admin/statuses`
-*PUT /admin/statuses*
-
-note: This will only update the status, it uses the IDs to match
-
-Data:
-```json
-{
-  "establishment_id": "1",
-  "beer_id": "1",
-  "status": "empty"
-}
-```
-
-## `DELETE /admin/statuses`
-*DELETE /admin/statuses*
-
-Data:
-```json
-{
-  "establishment_id": "1",
-  "beer_id": "1",
-}
-```
-
-
-## `PUT /establishments/:establishment_id/beer/:beer_id/`
-*PUT /establishments/:establishment_id/beer/:beer_id/*
-
-Data:
-```json
-{
-  "device_guid": "d43db411-58d6-4271-81d6-e3192d9c3ef7"
-}
-```
-
-Response: 200 OK - if not already reported, 403 Forbidden - if already reported, 404 Not Found - if not found
-
-Original API wanted to do this, but I remapped it to /report - feel free to change it! :)
-
-```json
-{
-  "establishment_id": 1,
-  "beer_id": 2,
-  "reported_out_count": 4
-}
-```
