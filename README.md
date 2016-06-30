@@ -186,16 +186,6 @@ Response:
 
 Data (as JSON encoded request body):
 
-
-  def rate
-    device_guid = params[:device_guid]
-    beer_id     = params[:beer_id]
-    value       = params[:value]
-
-    log_rating_for(device_guid: device_guid, beer_id: beer_id, value: value)
-    render_rating_response_for(beer_id: beer_id)
-  end
-
 ```json
 {
   "beer_id": 2,
