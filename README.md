@@ -180,3 +180,40 @@ Response:
   "like_type": 2
 }
 ```
+
+## `POST /rate`
+*POST /favorite*
+
+Data (as JSON encoded request body):
+
+
+  def rate
+    device_guid = params[:device_guid]
+    beer_id     = params[:beer_id]
+    value       = params[:value]
+
+    log_rating_for(device_guid: device_guid, beer_id: beer_id, value: value)
+    render_rating_response_for(beer_id: beer_id)
+  end
+
+```json
+{
+  "beer_id": 2,
+  "device_guid": "GUID",
+  "age":  43,
+  "lat": "Y",
+  "lon": "X",
+  "value": 5
+}
+```
+
+** Note: Value must between 0 or 1 -- 0 equals 'thumbs down'; 1 equals 'thumbs up'**
+
+Response:
+```json
+{
+  "beer_id": 2,
+  "rating": 0.3,
+}
+```
+** Note: Rating is average rating across beer**
