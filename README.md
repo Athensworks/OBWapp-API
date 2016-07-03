@@ -21,10 +21,13 @@ Example:
 ## `GET /beers`
 *GET /beers*
 ```json
-{"beers": [
+[
  {
         "abv": 5.0,
-        "brewery": "Jackie O's",
+        "brewery": {
+          id: 23,
+          name: "Jackie O's",
+         },
         "favorite_count": 44,
         "ibu": 45,
         "id": 1,
@@ -35,8 +38,10 @@ Example:
     },
     {
         "abv": 5.0,
-        "brewery": "Jackie O's",
-        "favorite_count": 52,
+        "brewery": {
+          id: 23,
+          name: "Jackie O's",
+         },        "favorite_count": 52,
         "ibu": 123,
         "id": 2,
         "limited_release": false,
@@ -46,16 +51,18 @@ Example:
     },
     {
         "abv": 4.7,
-        "brewery": "Jackie O's",
-        "favorite_count": 11110,
+        "brewery": {
+          id: 23,
+          name: "Jackie O's",
+         },        "favorite_count": 11110,
         "ibu": 32,
         "id": 3,
         "limited_release": true,
         "name": "Razz Wheat",
         "taste_count": 12,
         "description": "The best description"
-    }]
-}
+    }
+]
 ```
 
 ## `GET /establishments`
@@ -72,8 +79,7 @@ age: NN
 
 Response:
 ```json
-{
-    "establishments": [
+[
         {
             "address": "",
             "beer_statuses": [
@@ -96,7 +102,6 @@ Response:
             "name": "Jackie O's"
         }
     ]
-}
 
 ```
 ## `GET /establishment/:establishment_id/beer_statuses`
