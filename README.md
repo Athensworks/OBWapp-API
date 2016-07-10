@@ -25,8 +25,8 @@ Example:
  {
         "abv": 5.0,
         "brewery": {
-          id: 23,
-          name: "Jackie O's",
+          "id": 23,
+          "name": "Jackie O's",
          },
         "favorite_count": 44,
         "ibu": 45,
@@ -39,8 +39,8 @@ Example:
     {
         "abv": 5.0,
         "brewery": {
-          id: 23,
-          name: "Jackie O's",
+          "id": 23,
+          "name": "Jackie O's",
          },        "favorite_count": 52,
         "ibu": 123,
         "id": 2,
@@ -52,8 +52,8 @@ Example:
     {
         "abv": 4.7,
         "brewery": {
-          id: 23,
-          name: "Jackie O's",
+          "id": 23,
+          "name": "Jackie O's",
          },        "favorite_count": 11110,
         "ibu": 32,
         "id": 3,
