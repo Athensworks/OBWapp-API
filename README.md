@@ -138,7 +138,6 @@ Data (as JSON encoded reqest body):
 
 
 ## `POST  /taste`
-
 *POST  /taste*
 
 Data (as JSON encoded reqest body):
@@ -187,7 +186,7 @@ Response:
 ```
 
 ## `POST /rate`
-*POST /favorite*
+*POST /rate*
 
 Data (as JSON encoded request body):
 
@@ -198,7 +197,7 @@ Data (as JSON encoded request body):
   "age":  43,
   "lat": "Y",
   "lon": "X",
-  "value": 5
+  "value": 1
 }
 ```
 
