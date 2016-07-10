@@ -20,6 +20,7 @@ Example:
 
 ## `GET /beers`
 *GET /beers*
+
 ```json
 [
  {
@@ -105,8 +106,8 @@ Response:
 
 ```
 ## `GET /establishment/:establishment_id/beer_statuses`
-
 *GET /establishment/:establishment_id/beer_statuses*
+
 ```json
 { "beer_statuses": [
     {
@@ -201,7 +202,7 @@ Data (as JSON encoded request body):
 }
 ```
 
-** Note: Value must between 0 or 1 -- 0 equals 'thumbs down'; 1 equals 'thumbs up'**
+**Note: Value must between 0 or 1 -- 0 equals 'thumbs down'; 1 equals 'thumbs up'**
 
 Response:
 ```json
@@ -210,4 +211,4 @@ Response:
   "rating": 0.3,
 }
 ```
-** Note: Rating is average rating across beer**
+**Note: Rating is average rating across beer**
